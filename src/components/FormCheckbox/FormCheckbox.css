@@ -1,0 +1,42 @@
+.label-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3em;
+}
+
+#label{
+    color: var(--title-color);
+    font-weight: 600;
+}
+
+.optional{
+    color: var(--text-color);
+    font-size: 0.8em;
+    margin-left: 1em;
+}
+
+
+.checkbox-container {
+
+    color: var(--text-color);
+    
+    input[type="checkbox"] {
+        height: 1em;
+        width: 1em;
+        accent-color: var(--primary-color);
+        margin-right: 0.5em;
+    }
+}
+
+.checkbox-container.disabled {
+    pointer-events: none;
+    color: var(--text-color-disabled)
+}
+
+
+
+#form-text {
+    color: var(--text-color);
+    font-size: 14px;
+    margin: 0.2em 0 0 0;
+}

@@ -1,0 +1,51 @@
+.user-card-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    flex-shrink: unset !important;
+
+    .image-section {
+      margin-right: 0.5em;
+    }
+    
+    .text-section {
+      flex-grow: 1;
+      line-height: 1.3em;
+      overflow: hidden;
+  
+      .text {
+        color: var(--title-color);
+        font-size: medium;
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+      
+      .subtext {
+        color: var(--text-color);
+        font-size: medium;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+    }
+    
+    .suffix-section {
+      margin-left: 1em;
+      max-width: fit-content;
+    }
+  }
+  
+.user-card-container.collapsed {
+  .image-section{
+    margin: 0;
+  }
+}
+  
+  

@@ -1,0 +1,52 @@
+.store-card-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    flex-shrink: unset !important;
+
+    .image-section {
+      padding: 0.1em;
+      margin-right: 0.5em;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    
+    .text-section {
+      flex-grow: 1;
+      line-height: 1.3em;
+      overflow: hidden;
+  
+      .text {
+        color: var(--title-color);
+        font-size: medium;
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+      
+      .subtext {
+        color: var(--text-color);
+        font-size: medium;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+    }
+    
+    .suffix-section {
+      max-width: fit-content;
+    }
+  }
+  
+.store-card-container.collapsed {
+  .image-section{
+    margin: 0;
+  }
+}
+  
+  

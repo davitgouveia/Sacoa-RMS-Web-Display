@@ -1,0 +1,16 @@
+.content-card{
+    position: relative;
+    padding: 1.5em 1.3em 1.5em 1.3em;
+    background-color: var(--secondary-background-color);
+    border: 2px solid var(--card-border-color);
+    border-radius: 12px;
+}
+
+.content-card .row {
+    margin: 0;
+}
+
+.content-card.hover:hover {
+    cursor: pointer;
+    background-color: var(--main-background-color);
+}

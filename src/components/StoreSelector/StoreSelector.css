@@ -1,0 +1,29 @@
+.off-canvas-store-selector {
+    background-color: var(--secondary-background-color);
+    padding: 2em 0.5em 0 0.5em;
+
+    .offcanvas-body {
+        display:flex;
+        flex-direction: column;
+        height: 100%;
+
+        .store-list{
+            flex-grow: 1;
+            overflow-y: scroll;
+        }
+
+        .language-settings{
+            display: flex;
+            flex-direction: row-reverse;
+            padding: 1em;
+        }
+    }
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    .off-canvas-store-selector {
+        width: 40% !important;
+    }
+  }

@@ -1,0 +1,47 @@
+.swagger-ui {
+        .wrapper {
+            max-width: unset !important;
+        }
+
+        .info {
+            display: none !important;
+        }
+
+        h1,h2,h3,h4,h5,h6{
+            font-family: Inter !important;
+            color: var(--title-color) !important;
+        }
+
+        p,td,li{
+            font-family: Inter !important;
+            color:var(--text-color) !important
+        }
+
+        .scheme-container {
+            padding: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        .opblock-section-header{
+            background-color: var(--secondary-background-color) !important;
+        }
+
+        .select {
+            background-color: var(--secondary-background-color) !important;
+        }
+
+        .btn{
+            color: var(--title-color) !important
+        }
+
+        .nostyle{
+            span{
+                color: var(--text-color) !important;
+            }
+        }
+
+        .servers-title{
+            color: var(--title-color) !important;
+        }
+    }

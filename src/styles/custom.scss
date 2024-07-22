@@ -1,0 +1,397 @@
+#root {
+    background-color: var(--main-background-color);
+}
+
+:root {
+    --default-font-family: Inter;
+    background-color: var(--main-background-color);
+
+    //Backgrounds
+    --main-background-color: #F8FAFC;
+    --main-background-color-disabled: #b4b4b42e;
+    --secondary-background-color: #fff;
+    
+    //Border
+    --border-color: #E5E7EB;
+    --card-border-color: #e5e7eb99;
+    --default-border-radius: 12px;
+    --default-box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.1);
+
+    //Input
+    --input-border-radius: 8px;
+
+    //Buttons
+    --text-color-button-primary: white;
+    --btn-background-color: #121926;
+    --clear-btn-border-color: #E6E9EC;
+
+    //Switches
+    --form-switch-color: #E6E9EC;
+    --form-switch-checked-color: #121926; 
+    --form-switch-ball: white;
+    --form-switch-ball-checked: white;
+
+    //Text
+    --title-color: #111927;
+    --title-color-disabled: #11192799;
+
+    --subtitle-color: #525863;
+    --subtitle-color-disabled: #52586399;
+
+    //Pill Nav
+    --pill-nav-background: #E7E9EC;
+    --pill-nav-active-text-color: white;
+    --pill-nav-text-color: #121926;
+
+    //Filter Pills
+    --filter-pills-background: var(--secondary-background-color);
+    --filter-pills-color: var(--title-color);
+    --filter-pills-border: var(--card-border-color);
+
+    --filter-pills-background-selected: var(--primary-color);
+    --filter-pills-color-selected: var(--secondary-background-color);
+    --filter-pills-border-selected: var(--primary-color);
+
+     //Heatmap
+     --pinpoint-color: #E30613;
+     --pinpoint-has-data: #E30613;
+     --pinpoint-no-data: #121926;
+     --pinpoint-selected: #3399ff;
+     
+     --selected-position-marker: #0056ac;
+     
+    
+    //Color
+    --white-color: #fff;
+    --primary-color: #121926;
+    --primary-color-low-opacity: rgba(18, 25, 38, 0.5);
+    --text-color: #545963;
+    --text-color-disabled: #54596380;
+    
+    --success-color: #8BCC31;
+    --success-text-color: #3A740A;
+    --success-color-low-opacity: rgba(139, 204, 49, 0.2);
+    --neutral-color: #d9dbdd80;
+    --danger-color: #875BF7;
+    --danger-text-color: #6927DA;
+    --danger-color-low-opacity: rgba(135, 91, 247, 0.2);
+}
+
+[data-theme="dark"] {
+    //Backgrounds
+    --main-background-color: #121926;
+    --main-background-color-disabled: #2c2c2c;
+    --secondary-background-color: #202939;
+
+     //Border
+    --border-color: #364152;
+    --card-border-color: #414A57;
+    --default-box-shadow: 0px 10px 15px -5px rgba(0, 0, 0, 0.5);
+
+    //Buttons
+    --text-color-button-primary: #121926;
+    --btn-background-color: #3c3c3c;
+    --clear-btn-border-color: #5c5c5c;
+
+    //Switches
+    --form-switch-color: #363C47;
+    --form-switch-checked-color: #EEF2F6;
+    --form-switch-ball: white;
+    --form-switch-ball-checked: #121926;
+
+    //Text
+    --title-color: #FFFFFF;
+    --title-color-disabled: #a0a0a0;
+
+    --subtitle-color: #BCBEC2;
+    --subtitle-color-disabled: #8c8c8c;
+    
+    //Pill Nav
+    --pill-nav-background: #353C47;
+    --pill-nav-active-text-color: #121926;
+    --pill-nav-text-color: #FFFFFF;
+
+    //Filter Pills
+    --filter-pills-background: var(--secondary-background-color);
+    --filter-pills-color: var(--title-color);
+    --filter-pills-border: var(--card-border-color);
+
+    --filter-pills-background-selected: var(--primary-color);
+    --filter-pills-color-selected: var(--secondary-background-color);
+    --filter-pills-border-selected: var(--primary-color);
+
+     //Heatmap
+     --pinpoint-color: #E30613;
+     --pinpoint-has-data: #E30613;
+     --pinpoint-no-data: #121926;
+     --pinpoint-selected: #3399ff;
+     
+     --selected-position-marker: #0056ac;
+    
+    //Colors
+    --white-color: #ffffff;
+    --primary-color: #EEF2F6;
+    --primary-color-low-opacity: rgba(238, 242, 246, 0.5);
+    --text-color: #e0e0e0;
+    --text-color-disabled: #8c8c8c;
+    --success-color: #8BCC31;
+    --success-text-color: #8BCC31;
+    --success-color-low-opacity: rgba(163, 252, 37, 0.2);
+    --neutral-color: #d9dbdd80;
+    --danger-color: #bb86fc;
+    --danger-text-color: #bb86fc;
+    --danger-color-low-opacity: rgba(123, 70, 255, 0.2);
+}
+
+.row {
+    margin-bottom: 1.5em;
+}
+
+.button-square {
+    border-radius: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.05em !important;
+    padding: 0 !important;
+    height: 2em;
+    width: 2em;
+}
+
+.button-rectangular {
+    border-radius: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
+    padding: 0 1em 0 1em !important;
+    height: 3em;
+}
+
+//Button Primary
+.button-primary {
+    color: var(--text-color-button-primary) !important;
+    background-color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+}
+
+.button-primary:hover {
+    color: var(--primary-color)!important;
+    background-color: transparent !important;
+    border: 1px solid var(--primary-color) !important;
+}
+
+//Button Light
+.button-light {
+    color: var(--primary-color) !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    
+}
+
+.button-light:disabled {
+    background-color: #5258631a !important;
+}
+
+.button-light:hover {
+    color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color)!important;
+}
+
+//Button Primary Outline
+.button-outline {
+    color: var(--primary-color) !important;
+    background-color: transparent !important;
+    border-color: var(--clear-btn-border-color) !important;
+}
+
+.button-outline:disabled {
+    background-color: #5258631a !important;
+}
+
+.button-outline:hover {
+    color: var(--text-color-button-primary) !important;
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+//Switches
+//WARNING - Currently going over default bootstrap css
+.form-check-input:focus{
+    box-shadow: none !important;
+}
+
+#default-switch{
+    cursor: pointer;
+    height: 1.3em;
+    width: 2.6em;
+    margin-right: 1em;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='121926'/></svg>");
+    background-color: var(--form-switch-color);
+    border-color: var(--form-switch-color);
+}
+
+#default-switch:checked{
+    background-color: var(--form-switch-checked-color);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='#121926'/%3e%3c/svg%3e");
+}
+
+//Large Switch
+#large-switch{
+    cursor: pointer;
+    height: 1.8em;
+    width: 3.2em;
+    margin-right: 1em;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    background-color: var(--form-switch-color);
+    border-color: var(--form-switch-color);
+}
+
+#large-switch:checked{
+    background-color: var(--form-switch-checked-color);
+}
+
+//Checkbox
+#default-checkbox{
+    background-color: var(--main-background-color) !important;
+}
+
+#default-checkbox:checked{
+    background-color: var(--form-switch-checked-color) !important;
+    border-color: var(--form-switch-checked-color) !important;
+}
+
+//Modal
+//TO-DO: resize modal dialog width with media query
+.default-modal-content{
+    background-color: unset !important;
+}
+
+.default-modal-header{
+    color: var(--title-color);
+    border-bottom: 1px solid var(--border-color) !important;
+    background-color: var(--secondary-background-color);
+}
+
+.default-modal-body {
+    color: var(--text-color);
+    background-color: var(--secondary-background-color);
+}
+
+.default-modal-footer {
+    border-top: none !important;
+    background-color: var(--main-background-color) !important;
+}
+
+//Dropdown
+#dropdown-icon-button, #dropdown-text-button, #dropdown-icon-text-button {
+    width: 100%;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-color);
+    background-color: transparent;
+}
+
+#dropdown-icon-button{
+    padding: 0.5em;
+}
+
+//Dropdown with border-disabled
+#dropdown-icon-button.border-disabled, #dropdown-text-button.border-disabled, #dropdown-icon-text-button.border-disabled {
+    border-color: transparent;
+}
+
+#dropdown-icon-button{
+    width: fit-content;
+}
+
+//Dropdown Hover
+#dropdown-icon-button:hover {
+    border-color: var(--card-border-color) !important; //REMOVE IMPORTANT
+    background-color: var(--main-background-color) !important;
+}
+
+//Item active (NOT WORKING)
+#dropdown-icon-button.dropdown-button:active, #dropdown-text-button.dropdown-button:active, #dropdown-icon-text-button.dropdown-button:active {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.65) !important;
+}
+
+#dropdown-icon-button::after, #dropdown-text-button::after, #dropdown-icon-text-button::after {
+    content: none; //Remove default dropdown icon
+}
+
+#dropdown-custom-menu{
+    padding: 0;
+    border: none;
+    background-color: var(--secondary-background-color);
+    box-shadow: var(--default-box-shadow);
+}
+
+#dropdown-custom-menu .dropdown-item{
+    background-color: var(--secondary-background-color);
+}
+
+//Accordion
+//ColapseBody
+.custom-accordion-collapse {
+    padding: 0.3em 0 0.1em 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid var(--border-color);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: var(--main-background-color)
+}
+
+.custom-accordion-collapse.sidebar-collapsed {
+    display: none;
+}
+
+//Nav Pills
+.custom-pill-nav{
+    width: fit-content !important;
+    padding: 0.3em 0.3em 0.3em 0.3em !important;
+    margin-bottom: 1em !important;
+    background-color: var(--pill-nav-background);
+    border-radius: var(--default-border-radius)
+    
+}
+
+.custom-pill-nav .custom-nav-item .nav-link {
+    display: flex;
+    color: var(--pill-nav-text-color);
+    border-radius: 10px;
+}
+
+.custom-pill-nav .custom-nav-item .active.nav-link {
+    display: flex;
+    color: var(--pill-nav-active-text-color);
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+//Placeholder text
+.custom-placeholder .placeholder {
+    background-color: var(--text-color-disabled);
+}
+
+//Multi-Select
+.custom-multi-select {
+    position: relative;
+    color: var(--text-color);
+    
+    --rmsc-main: var(--primary-color) !important;
+    --rmsc-h: 40px !important;
+    --rmsc-selected: transparent !important;
+    --rmsc-bg: var(--secondary-background-color) !important;
+    --rmsc-hover: var(--main-background-color) !important;
+    --rmsc-border: var(--border-color) !important;
+    --rmsc-radius: var(--default-border-radius) !important;
+
+    z-index: 4;
+
+    .search input {
+        color: var(--text-color) !important;
+    }
+}
+
+@import './scrollbar.css';
+@import '~bootstrap/scss/bootstrap';

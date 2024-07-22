@@ -1,0 +1,24 @@
+#dropdown-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#dropdown-title-container #icon-text-container {
+    display: flex;
+    align-items: center;
+}
+
+#dropdown-title-container #icon-text-container #icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    height: 24px;
+    width: 24px;
+}
+
+#dropdown-title-container #drop-icon {
+    display: flex;
+    align-items: center;
+}

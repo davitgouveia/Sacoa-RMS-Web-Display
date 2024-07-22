@@ -1,0 +1,9 @@
+.progressbar-rms-session{
+    height: 8px;
+    margin-top: 0.75em;
+    margin-bottom: 1.3em;
+    background-color: var(--main-background-color);
+        .progress-bar {
+            background-color: var(--primary-color);
+        }
+}

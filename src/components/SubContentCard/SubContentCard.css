@@ -1,0 +1,20 @@
+#sub-content-card{
+    padding: 1.5em;
+    border-radius: 12px;
+    background-color: var(--main-background-color);
+}
+
+#sub-content-card #sub-content-card-title {
+    padding: 0;
+}
+
+#sub-content-card .row {
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #sub-content-card {
+        margin-bottom: 1em;
+    }
+  }

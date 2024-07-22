@@ -1,0 +1,25 @@
+.filter-pill{
+    font-family: var(--default-font-family);
+    color: var(--filter-pills-color);
+    background-color: var(--filter-pills-background);
+    border: 1px solid var(--filter-pills-border);
+    max-width: fit-content;
+    max-height: 2em;
+    padding: 0.2em 1em 0.2em 1em;
+    margin-right: 0.3em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.filter-pill.selected{
+    color: var(--filter-pills-color-selected);
+    background-color: var(--filter-pills-background-selected);
+    border: 1px solid var(--filter-pills-border-selected);
+}
+
+@media only screen and (max-width: 768px) {
+   .filter-pill{
+    margin-bottom: 0.3em;
+   }
+}

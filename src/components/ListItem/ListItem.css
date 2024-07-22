@@ -1,0 +1,94 @@
+.listitem-container {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: unset !important;
+    align-items: center;
+    padding: 0.5em 1em 0.5em 1em;
+    margin-bottom: 0.3em;
+    
+    white-space: nowrap;
+    border: 2px solid var(--card-border-color);
+    border-radius: 12px;
+
+    .image-section {
+      min-width: fit-content;
+      margin-right: 0.5em;
+      border: 1px solid var(--card-border-color);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .icon-section {
+      margin-right: 0.5em;
+      color: var(--text-color);
+      width: 30px;
+    }
+
+    .text-section {
+      flex-grow: 1;
+      line-height: 1.5em;
+      overflow: hidden;
+
+      .text {
+        color: var(--title-color);
+        font-size: large;
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+  
+      .subtext {
+        color: var(--text-color);
+        font-size: medium;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0;
+      }
+    }
+
+    
+    
+}
+
+.listitem-container.clickable {
+  cursor: pointer;
+}
+
+.listitem-container[disabled] {
+  background-color: var(--main-background-color-disabled) !important;
+  cursor:default;
+
+  /*DISABLE USER SELECTING*/
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none;
+
+  .text {
+    color: var(--title-color-disabled);
+  }
+
+  .subtext {
+    color: var(--subtitle-color-disabled);
+  }
+}
+
+.listitem-container.card {
+  background-color: var(--secondary-background-color);
+  border-color: var(--card-border-color);
+}
+
+.listitem-container.subcard {
+  background-color: var(--main-background-color);
+  border-color: var(--main-background-color);
+}
+
+.listitem-container.card.hover:hover{
+  background-color: var(--main-background-color);
+}
+
+.listitem-container.subcard.hover:hover{
+  background-color: var(--secondary-background-color);
+}

@@ -1,0 +1,39 @@
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1em 0 1em;
+    height: 4em;
+    background-color: var(--secondary-background-color);
+    
+    .previous-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .pages-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .next-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .pagination-item {
+      margin: auto 4px;
+      color: var(--title-color);
+      line-height: 1.5;
+      font-size: 1em;
+  
+  
+    }
+    span.page.selected {
+      font-size: larger;
+      font-weight: 600;
+    }
+  }
+  

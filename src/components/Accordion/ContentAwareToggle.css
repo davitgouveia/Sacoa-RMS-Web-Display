@@ -1,0 +1,39 @@
+.context-aware-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.3em 0 0;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 12px;
+}
+
+.context-aware-toggle.collapsed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+.context-aware-toggle[disabled] {
+    color: var(--text-color-disabled);
+    border: 1px solid transparent;
+    border-radius: 12px;
+}
+
+.context-aware-toggle:hover[disabled] {
+    background-color: unset;
+    border: 1px solid transparent;
+    cursor: default
+}
+
+.context-aware-toggle:hover {
+    background-color: var(--main-background-color);
+    border-color: var(--border-color);
+}
+
+.context-aware-toggle.collapsed:hover {
+    background-color: unset;
+    outline: unset;
+}

@@ -1,0 +1,35 @@
+.label-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3em;
+}
+
+.label{
+    color: var(--title-color);
+    font-weight: 600;
+}
+
+.optional{
+    color: var(--text-color);
+    font-size: 0.8em;
+    margin-left: 1em;
+}
+
+.custom-form-select{
+    color: var(--title-color);
+    height: 40px;
+    background-color: var(--secondary-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--input-border-radius);
+    margin-bottom: 1.5em;
+}
+
+.custom-form-select:focus{
+    border: 2px solid var(--primary-color);
+    box-shadow: none;
+}
+
+.custom-form-select[disabled]{
+    background-color: var(--main-background-color);
+    box-shadow: none;
+}

@@ -1,0 +1,103 @@
+.button-icon {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    padding: 0.5em;
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--default-border-radius);
+    transition: width 0.3s ease;
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+    }
+
+    .text-span{
+        font-size: 20;
+        width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+    }
+   
+}
+
+.button-icon.background-color-fill{
+    background-color: var(--secondary-background-color);
+}
+
+.button-icon.border-disabled {
+    border-color: transparent;
+}
+
+.button-icon:hover {
+    border-color: var(--card-border-color);
+    background-color: var(--main-background-color);
+    
+}
+
+.button-icon.text {
+    width: 42.32px; /*This value is hardcoded instead of fit-content because fit-content doesn't work with transition*/
+}
+
+.button-icon.text:hover {
+    width: 200px;
+    border-color: var(--card-border-color) !important;
+    background-color: var(--main-background-color);
+
+    .text-span{
+        padding-left: 0.3em;
+        width: fit-content;
+        transition: width 0.3s ease;
+    }
+    
+}
+
+.button-icon.disabled{
+    color: var(--text-color-disabled);
+    cursor: unset;
+    background-color: var(--main-background-color-disabled);
+}
+
+.button-icon.disabled:hover{
+    background-color: var(--main-background-color-disabled);
+}
+
+.button-icon.text.disabled:hover {
+    width: unset;
+    background-color: var(--main-background-color-disabled);
+
+    .text-span{
+        display: none;
+    }
+    
+}
+
+.button-icon.sm .icon {
+    width: 20px;
+    height: 20px;
+}
+
+.button-icon.md .icon {
+    width: 25px;
+    height: 25px;
+}
+
+.button-icon.lg .icon {
+    width: 30px;
+    height: 30px;
+}
+
+.button-icon.xl .icon {
+    width: 35px;
+    height: 35px;
+}

@@ -1,0 +1,31 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    padding: 0 2em 0 2em;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 50px;
+}
+
+.prefixIcon {
+    display: flex;
+    align-items: center;
+    height: 1.5em;
+    width: 1.5em;
+    margin-right: 0.5em;
+}
+
+.suffixIcon {
+    display: flex;
+    align-items: center;
+    height: 1.5em;
+    width: 1.5em;
+    margin-left: 0.5em;
+}
+
+.button:focus-visible{
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem var(--primary-color-low-opacity);
+}

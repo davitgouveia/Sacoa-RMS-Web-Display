@@ -1,0 +1,124 @@
+.sidebar-item-component{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+
+    padding: 0.8em;
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+
+    color: var(--text-color);
+
+    background-color: var(--secondary-background-color);
+    border: 1px solid transparent;
+    border-radius: var(--default-border-radius);
+}
+
+.sidebar-item-component.active .active-indicator{
+    position: absolute;
+    left: 0;
+    height: 35px;
+    width: 5px;
+    border-radius: var(--default-border-radius);
+    background-color: var(--primary-color);
+    transition: height 200ms ease;
+}
+
+.sidebar-item-component .active-indicator{
+    height: 0px;
+}
+
+.sidebar-item-component:hover {
+    background-color: var(--main-background-color);
+    border-color: var(--border-color);
+}
+
+.sidebar-item-component #icon-area{
+    width: 25px;
+}
+
+.sidebar-item-component #text-area{
+    flex-grow: 1;
+    width: 250px;
+    margin-left: 0.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    transition: all 0.2s ease;
+} 
+
+.sidebar-item-component.collapsed #text-area{
+    width: 0px;
+    margin-left: 0em;
+    transition: all 0.2s ease;
+} 
+
+.sidebar-item-component #text-area h1{
+    margin: 0;
+    font-size: 1em;
+    font-weight: 500;
+}  
+
+.sidebar-item-component.collapsed #text-area h1{
+    display: none;
+} 
+
+/*SIDEBAR-ITEM-DISABLED*/
+
+.sidebar-item-component[disabled]{
+    color: var(--text-color-disabled);
+    cursor: default;
+}
+
+.sidebar-item-component:hover[disabled] {
+    border-color: transparent;
+    background-color: var(--secondary-background-color);
+}
+
+.sidebar-item-component.collapsed[disabled]{
+    color: var(--text-color-disabled);
+    cursor: default;
+}
+
+.sidebar-item-component.collapsed:hover[disabled] {
+    border-color: transparent;
+    background-color: var(--secondary-background-color);
+}
+
+
+/*SUB-MENU*/
+.sidebar-item-component.sub-menu:hover {
+    background-color: var(--main-background-color);
+    border-color: var(--border-color);
+}
+
+.sidebar-item-component.sub-menu:hover[disabled] {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+/*SUB-ITEM*/
+.sidebar-item-component.sub-item{
+    padding: 0.8em;
+    background-color: var(--main-background-color);
+    border-radius: 0px;
+}
+
+.sidebar-item-component.sub-item #icon-area{
+    width: 22px;
+}
+
+.sidebar-item-component.sub-item #text-area h1{
+    font-size: 0.9em;
+}
+
+.sidebar-item-component.sub-item:hover{
+    background-color: var(--secondary-background-color);
+}
+
+.sidebar-item-component.sub-item.active .active-indicator{
+    height: 25px;
+    width: 4px;
+}
