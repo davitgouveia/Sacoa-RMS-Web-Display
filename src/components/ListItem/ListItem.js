@@ -6,7 +6,10 @@ function ListItem({
   imageSrc,
   iconComponent,
   text,
+  textColor,
   subtext,
+  subtextColor,
+  style,
   type = 'card',
   hover = false,
   onClickAction,
@@ -26,6 +29,7 @@ function ListItem({
       <div
         className={`listitem-container ${type} ${onClickAction ? 'clickable' : ''} ${hover ? 'hover' : ''} `}
         onClick={handleClick}
+        style={style}
         {...(disabled ? { disabled: 'disabled' } : {})}
       >
         {imageSrc ? (
@@ -36,8 +40,12 @@ function ListItem({
           iconComponent && <div className="icon-section">{iconComponent}</div>
         )}
         <div className="text-section">
-          <h1 className="text">{text}</h1>
-          <p className="subtext">{subtext}</p>
+          <h1 className="text" style={{ color: textColor ? textColor : '' }}>
+            {text}
+          </h1>
+          <p className="subtext" style={{ color: subtextColor ? subtextColor : '' }}>
+            {subtext}
+          </p>
         </div>
         {suffixComponent && <div className="suffix-section">{suffixComponent && <span>{suffixComponent}</span>}</div>}
       </div>
