@@ -7,10 +7,11 @@ interface Props {
   style?: object;
   onClick?: ()=>void,
   hover?: boolean
+  selected?: boolean,
   children: React.ReactNode;
 }
 
-const ContentCard: React.FC<Props> = ({ classParams='', style, children, onClick, hover=false}) => {
+const ContentCard: React.FC<Props> = ({ classParams='', style, selected, children, onClick, hover=false}) => {
 
   const handleClick = () => {
     if (onClick) {
@@ -20,7 +21,7 @@ const ContentCard: React.FC<Props> = ({ classParams='', style, children, onClick
 
   return (
     <>
-      <Container fluid className={`content-card ${hover ? 'hover' : ''} ${classParams}`} style={style} onClick={handleClick}>
+      <Container fluid className={`content-card ${hover ? 'hover' : ''} ${selected ? 'selected' : ''}  ${classParams}`} style={style} onClick={handleClick}>
         {children}
       </Container>
     </>

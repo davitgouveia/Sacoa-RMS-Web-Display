@@ -7,18 +7,21 @@ import './styles/custom.scss';
 
 import reportWebVitals from './reportWebVitals';
 
+import ThemeProvider from './styles/ThemeContext';
 import ActiveSessions from './pages/RMS/ActiveSessions';
 import Settings from './pages/Settings/Settings';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ActiveSessions />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ActiveSessions />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

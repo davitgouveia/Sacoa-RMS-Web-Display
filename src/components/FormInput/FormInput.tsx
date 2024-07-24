@@ -85,7 +85,7 @@ const FormInput: React.FC<Props>=({
           )}
           <div id="input-container" className={`${classParams}`}>
             <input
-              className={`input-${INITIAL_TYPE} ${hasPrefixIcon ? 'prefix' : ''} ${hasSuffixIcon ? 'suffix' : ''} ${required ? 'required' : ''}`}
+              className={`input-${INITIAL_TYPE} ${hasPrefixIcon ? 'prefix' : ''} ${hasSuffixIcon ? 'suffix' : ''} ${required ? 'required' : ''} ${disabled ? 'disabled' : ''}`}
               type={formType}
               id={id}
               name={name}

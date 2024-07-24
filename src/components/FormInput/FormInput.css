@@ -44,6 +44,10 @@ input::placeholder {
         padding-right: 2.5em;
     }
 
+    input.disabled{
+        background-color: var(--main-background-color-disabled);
+    }
+
     .input-text {
         padding: 0 1em 0 1em;
     }

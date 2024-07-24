@@ -19,7 +19,11 @@ const ThemeProvider = ({ children }) => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  const setColorTheme = (theme) => {
+    setTheme(theme);
+  };
+
+  return <ThemeContext.Provider value={{ theme, toggleTheme, setColorTheme }}>{children}</ThemeContext.Provider>;
 };
 
 export default ThemeProvider;
