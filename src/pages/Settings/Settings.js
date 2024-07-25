@@ -77,6 +77,21 @@ function Settings() {
   const [enabledThemeConfig, setEnabledThemeConfig] = useState(false);
   const [enableCardBalanceConfig, setEnabledCardBalanceConfig] = useState(false);
 
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [imagesPathsAvailable, setImagesPathsAvailable] = useState([]);
+
+  async function getImagesPaths() {
+    const response = await fetch(`http://localhost:1234/files/images/rms/allPaths/logo`);
+    return response.json();
+  }
+
+  const handleCloseImageModal = () => setShowImageModal(false);
+  const handleShowImageModal = async () => {
+    await getImagesPaths().then((paths) => setImagesPathsAvailable(paths));
+    console.log(imagesPathsAvailable);
+    setShowImageModal(true);
+  };
+
   const [showCancelModal, setShowCancelModal] = useState(false);
   const handleCloseCancelModal = () => setShowCancelModal(false);
   const handleShowCancelModal = () => setShowCancelModal(true);
@@ -173,8 +188,7 @@ function Settings() {
                   <img src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png" width={200} />
                 </div>
                 <div className="d-flex justify-content-end">
-                  <Button text="Choose File" size="sm" type="outline" />
-                  <Button text="Upload" size="sm" type="outline" style={{ marginLeft: '0.3em' }} />
+                  <Button text="Choose File" size="sm" type="outline" onClick={() => handleShowImageModal()} />
                 </div>
                 <form
                   style={{ display: `none` }}
@@ -701,7 +715,6 @@ function Settings() {
         backdrop="static"
         keyboard={false}
         scrollable
-        dialogClassName="support-modal-dialog"
         contentClassName="default-modal-content"
       >
         <Modal.Header className={'default-modal-header'}>
@@ -716,6 +729,77 @@ function Settings() {
             <Button text="No" size="sm" type="light" onClick={() => handleCloseCancelModal(false)} />
             <Button
               text="Yes"
+              size="sm"
+              type="primary"
+              style={{ marginLeft: '0.3em' }}
+              onClick={() => handleResetSettings()}
+            />
+          </div>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showImageModal}
+        onHide={handleCloseImageModal}
+        backdrop="static"
+        size="xl"
+        keyboard={false}
+        scrollable
+        dialogClassName="support-modal-dialog"
+        contentClassName="default-modal-content"
+      >
+        <Modal.Header className={'default-modal-header'}>
+          <Title title={`Change logo`} size="md" noMargin />
+        </Modal.Header>
+
+        <Modal.Body className={'default-modal-body'}>
+          <div style={{ height: '700px' }}>
+            <Title noMargin title={'Upload a new image'} />
+            <SubContentCard
+              classParams={'d-flex justify-content-center align-items-center'}
+              style={{ height: '200px', margin: '1em 0 1em 0' }}
+            >
+              <Text size="lg" noMargin>
+                Drag an Image here or
+              </Text>
+              <Button text="Upload a file" type="outline" style={{ marginLeft: '0.75em' }} size="sm" />
+            </SubContentCard>
+            <Title noMargin title={'Or select past images'} />
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                overflowY: 'scroll',
+                height: '380px',
+                margin: '1em 0 0 0',
+                border: `2px solid var(--border-color)`,
+                borderRadius: `5px`,
+              }}
+            >
+              {imagesPathsAvailable.length !== 0 &&
+                imagesPathsAvailable.map((imagePath) => (
+                  <div
+                    style={{
+                      height: 'fit-content',
+                      maxWidth: '500px',
+                      margin: '1em',
+                      border: '1px solid black',
+                    }}
+                  >
+                    <img
+                      src={`http://localhost:1234/files/rms/logo/${imagePath}`}
+                      style={{ height: 'auto', maxWidth: '100%' }}
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className={'default-modal-footer'}>
+          <div style={{ display: 'flex', justifyContent: `end` }}>
+            <Button text="Cancel" size="sm" type="light" onClick={() => handleCloseImageModal()} />
+            <Button
+              text="Save"
               size="sm"
               type="primary"
               style={{ marginLeft: '0.3em' }}
