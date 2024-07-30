@@ -8,6 +8,7 @@ import './styles/custom.scss';
 import reportWebVitals from './reportWebVitals';
 
 import ThemeProvider from './styles/ThemeContext';
+import ConfigProvider from './hooks/ConfigContext';
 import ActiveSessions from './pages/RMS/ActiveSessions';
 import Settings from './pages/Settings/Settings';
 
@@ -15,12 +16,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ActiveSessions />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </BrowserRouter>
+      <ConfigProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<ActiveSessions />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </BrowserRouter>
+      </ConfigProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

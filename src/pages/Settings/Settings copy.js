@@ -29,17 +29,33 @@ import ListItem from '../../components/ListItem/ListItem.js';
 import ContentCard from '../../components/ContentCard/ContentCard.tsx';
 import SubContentCard from '../../components/SubContentCard/SubContentCardComponent.js';
 
-function Settings() {
-  const { theme, setColorTheme } = useContext(ThemeContext);
-  const { config, setNewConfig } = useContext(ConfigContext);
+function getSavedConfig() {
+  const config = {
+    title: 'Redemption Multi Sessions',
+    theme: 'light',
+    cardBalance: {
+      showTickets: true,
+      showCredits: true,
+      showBonus: true,
+      showCourtesy: false,
+    },
+  };
 
+  return config;
+}
+
+function Settings() {
   const [savedConfig, setSavedConfig] = useState({});
   const [currentConfig, setCurrentConfig] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [hasChanges, setHasChanges] = useState(false);
 
+  const { theme, setColorTheme } = useContext(ThemeContext);
+
   useEffect(() => {
     const fetchConfig = async () => {
+      const config = await getSavedConfig();
+
       setSavedConfig(config);
       setCurrentConfig(config);
 
@@ -50,7 +66,7 @@ function Settings() {
       }, 500);
     };
     fetchConfig();
-  }, [config]);
+  }, []);
 
   useEffect(() => {
     setHasChanges(JSON.stringify(currentConfig) !== JSON.stringify(savedConfig));
@@ -91,6 +107,7 @@ function Settings() {
   const handleCloseImageModal = () => setShowImageModal(false);
   const handleShowImageModal = async () => {
     await getImagesPaths().then((paths) => setImagesPathsAvailable(paths));
+    console.log(imagesPathsAvailable);
     setShowImageModal(true);
   };
 
@@ -109,13 +126,6 @@ function Settings() {
     handleCloseCancelModal();
   };
 
-  const handleSaveConfig = () => {
-    setEnabledTitleConfig(false);
-    setEnabledThemeConfig(false);
-    setEnabledCardBalanceConfig(false);
-    setNewConfig(currentConfig);
-  };
-
   return (
     <DefaultPage title="RMS Settings">
       <Button prefixIcon={<SquaresPlusIcon />} text="Back to RMS" type="outline" onClick={() => navigate('/')} />
@@ -128,13 +138,7 @@ function Settings() {
               suffixComponent={
                 <div style={{ display: 'flex', visibility: hasChanges ? 'visible' : 'hidden' }}>
                   <Button text="Cancel" size="sm" type="light" onClick={() => handleShowCancelModal()} />
-                  <Button
-                    text="Save"
-                    size="sm"
-                    type="primary"
-                    style={{ marginLeft: '0.3em' }}
-                    onClick={() => handleSaveConfig()}
-                  />
+                  <Button text="Save" size="sm" type="primary" style={{ marginLeft: '0.3em' }} />
                 </div>
               }
             />
@@ -650,13 +654,7 @@ function Settings() {
             <Row>
               <div style={{ display: 'flex', justifyContent: `end`, visibility: hasChanges ? 'visible' : 'hidden' }}>
                 <Button text="Cancel" size="sm" type="light" onClick={() => handleShowCancelModal()} />
-                <Button
-                  text="Save"
-                  size="sm"
-                  type="primary"
-                  style={{ marginLeft: '0.3em' }}
-                  onClick={() => handleSaveConfig()}
-                />
+                <Button text="Save" size="sm" type="primary" style={{ marginLeft: '0.3em' }} />
               </div>
             </Row>
           </>

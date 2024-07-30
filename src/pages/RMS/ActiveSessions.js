@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './ActiveSessions.css';
 
-import { Row, ProgressBar, Table } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+
+import { ConfigContext } from '../../hooks/ConfigContext.js';
 
 import DefaultPage from '../../components/DefaultPage/DefaultPage.tsx';
 import ContentCard from '../../components/ContentCard/ContentCard.tsx';
@@ -15,6 +18,9 @@ import ContentNotFound from '../../components/ContentNotFound/ContentNotFound.ts
 import Text from '../../components/Text/Text.tsx';
 
 function ActiveSessions() {
+  const { config } = useContext(ConfigContext);
+  const navigate = useNavigate();
+
   const [sessions, setSessions] = useState([]);
   const [sessionTimeout, setSessionTimeout] = useState(60000);
 
@@ -97,8 +103,14 @@ function ActiveSessions() {
   return (
     <DefaultPage
       fluid
-      title="Redemption Multi Sessions"
-      suffixComponent={<img src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png" width={200} />}
+      title={config.title}
+      suffixComponent={
+        <img
+          src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png"
+          width={200}
+          onClick={() => navigate('/settings')}
+        />
+      }
     >
       {hasConnection ? (
         <>
@@ -202,47 +214,63 @@ function ActiveSessions() {
                 <div className="d-flex justify-content-center flex-wrap">
                   {cardBalanceSessions.map(({ card_number, credits, bonus, courtesy, tickets }) => (
                     <ContentCard style={{ maxWidth: 'fit-content', margin: '0.3em' }}>
-                      <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '1em' }}>
-                        <Title size="lg" title={`Card: ${card_number}`} subTitle={`Balance`} noMargin />
-                      </div>
-                      <Row>
-                        <SubContentCard>
-                          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '1.5em' }}>
-                              <Text size="sm" noMargin>
-                                Tickets
-                              </Text>{' '}
-                              <Text size="lg" fontWeight="600" noMargin>
-                                {tickets}
-                              </Text>
-                            </div>{' '}
-                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '1.5em' }}>
-                              <Text size="sm" noMargin>
-                                Credits
-                              </Text>{' '}
-                              <Text size="lg" fontWeight="600" noMargin>
-                                {credits}
-                              </Text>
-                            </div>{' '}
-                            <div style={{ display: 'flex', flexDirection: 'column', marginRight: '1.5em' }}>
-                              <Text size="sm" noMargin>
-                                Bonus
-                              </Text>{' '}
-                              <Text size="lg" fontWeight="600" noMargin>
-                                {bonus}
-                              </Text>
-                            </div>{' '}
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                              <Text size="sm" noMargin>
-                                Courtesy
-                              </Text>{' '}
-                              <Text size="lg" fontWeight="600" noMargin>
-                                {courtesy}
-                              </Text>
-                            </div>
-                          </div>
-                        </SubContentCard>
-                      </Row>
+                      {!config.cardBalance.showTickets &&
+                      !config.cardBalance.showCredits &&
+                      !config.cardBalance.showBonus &&
+                      !config.cardBalance.showCourtesy ? (
+                        <Title size="lg" title={`Card: ${card_number}`} noMargin />
+                      ) : (
+                        <>
+                          {' '}
+                          <Title size="lg" title={`Card: ${card_number}`} />
+                          <Row>
+                            <SubContentCard>
+                              <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                                {config.cardBalance.showTickets && (
+                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Text size="sm" noMargin>
+                                      Tickets
+                                    </Text>{' '}
+                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                                      {tickets}
+                                    </Text>
+                                  </div>
+                                )}
+                                {config.cardBalance.showCredits && (
+                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Text size="sm" noMargin>
+                                      Credits
+                                    </Text>{' '}
+                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                                      {credits}
+                                    </Text>
+                                  </div>
+                                )}
+                                {config.cardBalance.showBonus && (
+                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Text size="sm" noMargin>
+                                      Bonus
+                                    </Text>{' '}
+                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                                      {bonus}
+                                    </Text>
+                                  </div>
+                                )}
+                                {config.cardBalance.showCourtesy && (
+                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <Text size="sm" noMargin>
+                                      Courtesy
+                                    </Text>{' '}
+                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                                      {courtesy}
+                                    </Text>
+                                  </div>
+                                )}
+                              </div>
+                            </SubContentCard>
+                          </Row>
+                        </>
+                      )}
                     </ContentCard>
                   ))}
                 </div>
