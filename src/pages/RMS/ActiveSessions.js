@@ -6,14 +6,13 @@ import './ActiveSessions.css';
 import { Row } from 'react-bootstrap';
 
 import { ConfigContext } from '../../hooks/ConfigContext.js';
+import { TicketIcon, ReceiptRefundIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 
 import DefaultPage from '../../components/DefaultPage/DefaultPage.tsx';
 import ContentCard from '../../components/ContentCard/ContentCard.tsx';
 import SubContentCard from '../../components/SubContentCard/SubContentCardComponent.js';
 import Title from '../../components/Title/Title.tsx';
 import ListItem from '../../components/ListItem/ListItem.js';
-
-import { TicketIcon, ReceiptRefundIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 import ContentNotFound from '../../components/ContentNotFound/ContentNotFound.tsx';
 import Text from '../../components/Text/Text.tsx';
 
@@ -22,10 +21,10 @@ function ActiveSessions() {
   const navigate = useNavigate();
 
   const [sessions, setSessions] = useState([]);
-  const [sessionTimeout, setSessionTimeout] = useState(60000);
+  //const [sessionTimeout, setSessionTimeout] = useState(60000);
 
   const [cardBalanceSessions, setCardBalanceSessions] = useState([]);
-  const [cardBalanceSessionTimeout, setCardBalanceSessionTimeout] = useState(60000);
+  //const [cardBalanceSessionTimeout, setCardBalanceSessionTimeout] = useState(60000);
   const [hasConnection, setHasConnection] = useState(true);
 
   const redemptionSession = {
@@ -49,18 +48,14 @@ function ActiveSessions() {
     [3, ticketTransferSession],
   ]);
 
-  function calculateTimeOutProgress(currentRemaining) {
-    const percentage = (currentRemaining * 100) / sessionTimeout;
-    return percentage;
-  }
-
   useEffect(() => {
     async function getConfig() {
       try {
         const response = await fetch(`${process.env.REACT_APP_RWS_API_ADDRESS}/info`);
         const data = await response.json();
-        setSessionTimeout(data.sessionTimeout);
-        setCardBalanceSessionTimeout(data.cardBalanceTimeout);
+        console.log(data);
+        //setSessionTimeout(data.sessionTimeout);
+        //setCardBalanceSessionTimeout(data.cardBalanceTimeout);
         setHasConnection(true);
       } catch (error) {
         console.error(`Error connection to web service:`, error);
@@ -107,6 +102,7 @@ function ActiveSessions() {
       suffixComponent={
         <img
           src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png"
+          alt="Logo"
           width={200}
           onClick={() => navigate('/settings')}
         />

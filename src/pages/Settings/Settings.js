@@ -200,7 +200,11 @@ function Settings() {
                     borderRadius: 'var(--default-border-radius)',
                   }}
                 >
-                  <img src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png" width={200} />
+                  <img
+                    src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png"
+                    alt="logo"
+                    width={200}
+                  />
                 </div>
                 <div className="d-flex justify-content-end">
                   <Button text="Choose File" size="sm" type="outline" onClick={() => handleShowImageModal()} />
@@ -296,7 +300,11 @@ function Settings() {
                   title={currentConfig.title}
                   size="xl"
                   suffixComponent={
-                    <img src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png" width={200} />
+                    <img
+                      src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png"
+                      alt="logo-preview"
+                      width={200}
+                    />
                   }
                   noMargin
                 />
@@ -809,6 +817,7 @@ function Settings() {
                   >
                     <img
                       src={`http://serverxx:1234/files/images/rms-web-display/logo/${imagePath}`}
+                      alt="previous-image"
                       style={{ height: 'auto', maxWidth: '100%' }}
                     />
                   </div>
