@@ -170,27 +170,50 @@ function ActiveSessions() {
                           </>
 
                           {data.length >= 1 ? (
-                            data.map((obj) => (
-                              <ListItem
-                                text={`${obj.item_name}`}
-                                subtext={obj.item_barcode}
-                                type="subcard"
-                                suffixComponent={
-                                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <span style={{ display: 'flex', alignItems: 'center', color: 'var(--text-color)' }}>
-                                      <Text fontWeight="600" size="lg" color={'var(--title-color)'} noMargin>
-                                        {obj.total_price}
+                            data.map((obj) =>
+                              session_type === 1 || session_type === 2 ? (
+                                <ListItem
+                                  key={obj.item_barcode}
+                                  text={`${obj.item_name}`}
+                                  subtext={obj.item_barcode}
+                                  type="subcard"
+                                  suffixComponent={
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                      <span
+                                        style={{ display: 'flex', alignItems: 'center', color: 'var(--text-color)' }}
+                                      >
+                                        <Text fontWeight="600" size="lg" color={'var(--title-color)'} noMargin>
+                                          {obj.total_price}
+                                        </Text>
+                                        <TicketIcon width={24} style={{ marginLeft: '0.3em' }} />
+                                      </span>
+                                      <Text size="md" noMargin textAlign="end">
+                                        <span style={{ fontSize: '14px' }}>{obj.item_quantity}x</span>
+                                        {obj.item_price}
                                       </Text>
-                                      <TicketIcon width={24} style={{ marginLeft: '0.3em' }} />
-                                    </span>
-                                    <Text size="md" noMargin textAlign="end">
-                                      <span style={{ fontSize: `14px` }}>{obj.item_quantity}x</span>
-                                      {obj.item_price}
-                                    </Text>
-                                  </div>
-                                }
-                              />
-                            ))
+                                    </div>
+                                  }
+                                />
+                              ) : session_type === 3 ? (
+                                <ListItem
+                                  key={obj.donor_card_number}
+                                  text={`${obj.donor_card_number}`}
+                                  type="subcard"
+                                  suffixComponent={
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                      <span
+                                        style={{ display: 'flex', alignItems: 'center', color: 'var(--text-color)' }}
+                                      >
+                                        <Text fontWeight="600" size="lg" color={'var(--title-color)'} noMargin>
+                                          {obj.tickets_to_transfer}
+                                        </Text>
+                                        <TicketIcon width={24} style={{ marginLeft: '0.3em' }} />
+                                      </span>
+                                    </div>
+                                  }
+                                />
+                              ) : null
+                            )
                           ) : (
                             <ListItem text={'Empty'} type="subcard" />
                           )}
