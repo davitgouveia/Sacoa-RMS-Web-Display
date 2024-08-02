@@ -9,7 +9,7 @@ interface Props {
   titleColor?: string;
   subTitle?: String
   subTitleColor?: string;
-  type: 'default' | 'tablecard',
+  type?: 'default' | 'tablecard',
   size: 'sm' | 'md' | 'lg' | 'xl',
   prefixIcon?: React.ReactNode | undefined,
   suffixChip?: React.ReactNode | undefined,

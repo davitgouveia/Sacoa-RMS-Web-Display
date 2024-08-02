@@ -60,7 +60,10 @@ function Settings() {
 
   const [enabledTitleConfig, setEnabledTitleConfig] = useState(false);
   const [enabledThemeConfig, setEnabledThemeConfig] = useState(false);
-  const [enableCardBalanceConfig, setEnabledCardBalanceConfig] = useState(false);
+  const [enabledCardBalanceConfig, setEnabledCardBalanceConfig] = useState(false);
+  const [enabledBoxDistributionConfig, setEnabledBoxDistributionConfig] = useState(false);
+  const [enabledFixedBoxSizeConfig, setEnabledFixedBoxSizeConfig] = useState(false);
+  const [enabledBoxNumbersConfig, setEnableBoxNumbersConfig] = useState(false);
 
   const [showImageModal, setShowImageModal] = useState(false);
   const [imagesPathsAvailable, setImagesPathsAvailable] = useState([]);
@@ -113,11 +116,13 @@ function Settings() {
     setEnabledTitleConfig(false);
     setEnabledThemeConfig(false);
     setEnabledCardBalanceConfig(false);
+    setEnabledBoxDistributionConfig(false);
+    setEnabledFixedBoxSizeConfig(false);
     setNewConfig(currentConfig);
   };
 
   return (
-    <DefaultPage title="RMS Settings">
+    <DefaultPage title="RMS Settings" subtitle="Station 1">
       <Button prefixIcon={<SquaresPlusIcon />} text="Back to RMS" type="outline" onClick={() => navigate('/')} />
       <ContentCard classParams="mt-3">
         {!isLoading ? (
@@ -289,13 +294,7 @@ function Settings() {
                 backgroundColor: 'var(--main-background-color)',
               }}
             >
-              <div
-                style={{
-                  width: '100%',
-                  padding: '1em 2em 1em 2em',
-                  marginBottom: '1em',
-                }}
-              >
+              <header className="sessions-header w-100">
                 <Title
                   title={currentConfig.title}
                   size="xl"
@@ -308,8 +307,8 @@ function Settings() {
                   }
                   noMargin
                 />
-              </div>
-              <ContentCard style={{ maxWidth: '550px', margin: '0.3em' }}>
+              </header>
+              <ContentCard style={{ maxWidth: '550px', margin: '1em' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '1em' }}>
                   <div
                     className="color-indicator"
@@ -389,7 +388,7 @@ function Settings() {
                         style={{
                           display:
                             JSON.stringify(currentConfig.cardBalance) === JSON.stringify(savedConfig.cardBalance) ||
-                            !enableCardBalanceConfig
+                            !enabledCardBalanceConfig
                               ? 'none'
                               : 'block',
                         }}
@@ -399,7 +398,7 @@ function Settings() {
                           hasBorder={true}
                           icon={<ArrowUturnLeftIcon />}
                           onClick={() => {
-                            setEnabledCardBalanceConfig(!enableCardBalanceConfig);
+                            setEnabledCardBalanceConfig(!enabledCardBalanceConfig);
                             setCurrentConfig({ ...currentConfig, cardBalance: { ...savedConfig.cardBalance } });
                           }}
                         />
@@ -408,8 +407,8 @@ function Settings() {
                         size="sm"
                         hasBorder={true}
                         style={{ marginLeft: '0.3em' }}
-                        icon={enableCardBalanceConfig ? <LockOpenIcon /> : <LockClosedIcon />}
-                        onClick={() => setEnabledCardBalanceConfig(!enableCardBalanceConfig)}
+                        icon={enabledCardBalanceConfig ? <LockOpenIcon /> : <LockClosedIcon />}
+                        onClick={() => setEnabledCardBalanceConfig(!enabledCardBalanceConfig)}
                       />
                     </div>
                   }
@@ -419,7 +418,7 @@ function Settings() {
                     <FormSwitch
                       size="sm"
                       checked={currentConfig.cardBalance.showTickets}
-                      disabled={!enableCardBalanceConfig}
+                      disabled={!enabledCardBalanceConfig}
                       onChange={() =>
                         setCurrentConfig({
                           ...currentConfig,
@@ -438,7 +437,7 @@ function Settings() {
                     <FormSwitch
                       size="sm"
                       checked={currentConfig.cardBalance.showCredits}
-                      disabled={!enableCardBalanceConfig}
+                      disabled={!enabledCardBalanceConfig}
                       onChange={() =>
                         setCurrentConfig({
                           ...currentConfig,
@@ -457,7 +456,7 @@ function Settings() {
                     <FormSwitch
                       size="sm"
                       checked={currentConfig.cardBalance.showBonus}
-                      disabled={!enableCardBalanceConfig}
+                      disabled={!enabledCardBalanceConfig}
                       onChange={() =>
                         setCurrentConfig({
                           ...currentConfig,
@@ -476,7 +475,7 @@ function Settings() {
                     <FormSwitch
                       size="sm"
                       checked={currentConfig.cardBalance.showCourtesy}
-                      disabled={!enableCardBalanceConfig}
+                      disabled={!enabledCardBalanceConfig}
                       onChange={() =>
                         setCurrentConfig({
                           ...currentConfig,
@@ -555,66 +554,18 @@ function Settings() {
                 </ContentCard>
               </Col>
             </Row>
-            {/* <Row>
-              <Title title={`Cards Orientation`} subTitle={'Choose the flow of the cards structure'} size="lg" />
-            </Row>
-            <Row className="mb-4">
-              <Title
-                title={`Vertical Flow`}
-                size="md"
-                suffixComponent={
-                  <div style={{ display: 'flex' }}>
-                    <div
-                      style={{
-                        display:
-                          JSON.stringify(currentConfig.cardBalance) === JSON.stringify(savedConfig.cardBalance) ||
-                          !enableCardBalanceConfig
-                            ? 'none'
-                            : 'block',
-                      }}
-                    >
-                      <IconButton
-                        size="sm"
-                        hasBorder={true}
-                        icon={<ArrowUturnLeftIcon />}
-                        onClick={() => {
-                          setEnabledCardBalanceConfig(!enableCardBalanceConfig);
-                          setCurrentConfig({ ...currentConfig, cardBalance: { ...savedConfig.cardBalance } });
-                        }}
-                      />
-                    </div>
-                    <IconButton
-                      size="sm"
-                      hasBorder={true}
-                      style={{ marginLeft: '0.3em' }}
-                      icon={enableCardBalanceConfig ? <LockOpenIcon /> : <LockClosedIcon />}
-                      onClick={() => setEnabledCardBalanceConfig(!enableCardBalanceConfig)}
-                    />
-                  </div>
-                }
-              />
-              <Col>
-                <ContentCard hover style={{ height: '200px', width: '370px' }}>
-                  <Title title={'Ascending'} size="md" />
-                </ContentCard>
-              </Col>
-              <Col>
-                <ContentCard hover selected style={{ height: '200px', width: '370px' }}>
-                  <Title title={'Descending'} size="md" />
-                </ContentCard>
-              </Col>
-            </Row>
             <Row>
               <Title
-                title={`Horizontal Flow`}
-                size="md"
+                title={'Box Distribution'}
+                subTitle={'Choose how the sessions are displayed'}
+                size="lg"
                 suffixComponent={
                   <div style={{ display: 'flex' }}>
                     <div
                       style={{
                         display:
-                          JSON.stringify(currentConfig.cardBalance) === JSON.stringify(savedConfig.cardBalance) ||
-                          !enableCardBalanceConfig
+                          JSON.stringify(currentConfig.boxDistribution) ===
+                            JSON.stringify(savedConfig.boxDistribution) || !enabledBoxDistributionConfig
                             ? 'none'
                             : 'block',
                       }}
@@ -624,8 +575,8 @@ function Settings() {
                         hasBorder={true}
                         icon={<ArrowUturnLeftIcon />}
                         onClick={() => {
-                          setEnabledCardBalanceConfig(!enableCardBalanceConfig);
-                          setCurrentConfig({ ...currentConfig, cardBalance: { ...savedConfig.cardBalance } });
+                          setEnabledBoxDistributionConfig(!enabledBoxDistributionConfig);
+                          setCurrentConfig({ ...currentConfig, boxDistribution: savedConfig.boxDistribution });
                         }}
                       />
                     </div>
@@ -633,28 +584,213 @@ function Settings() {
                       size="sm"
                       hasBorder={true}
                       style={{ marginLeft: '0.3em' }}
-                      icon={enableCardBalanceConfig ? <LockOpenIcon /> : <LockClosedIcon />}
-                      onClick={() => setEnabledCardBalanceConfig(!enableCardBalanceConfig)}
+                      icon={enabledBoxDistributionConfig ? <LockOpenIcon /> : <LockClosedIcon />}
+                      onClick={() => setEnabledBoxDistributionConfig(!enabledBoxDistributionConfig)}
                     />
                   </div>
                 }
               />
+            </Row>
+            <Row className="mb-4">
               <Col>
-                <ContentCard hover style={{ height: '200px', width: '370px' }}>
-                  <Title title={'Left to Right'} size="md" />
+                <ContentCard
+                  hover
+                  selected={currentConfig.boxDistribution === 'fixed'}
+                  disabled={!enabledBoxDistributionConfig}
+                  onClick={() => setCurrentConfig({ ...currentConfig, boxDistribution: 'fixed' })}
+                >
+                  <Title title={'Fixed'} subTitle={'Fixed boxes, configurable sessions amount'} size="md" noMargin />
                 </ContentCard>
               </Col>
               <Col>
-                <ContentCard hover selected style={{ height: '200px', width: '370px' }}>
-                  <Title title={'Middle'} size="md" />
+                <ContentCard
+                  hover
+                  selected={currentConfig.boxDistribution === 'dynamic'}
+                  disabled={!enabledBoxDistributionConfig}
+                  onClick={() => setCurrentConfig({ ...currentConfig, boxDistribution: 'dynamic' })}
+                >
+                  <Title title={'Dynamic'} subTitle={'Varying size boxes, max of 6 sessions'} size="md" noMargin />
                 </ContentCard>
               </Col>
-              <Col>
-                <ContentCard hover style={{ height: '200px', width: '370px' }}>
-                  <Title title={'Right to Left'} size="md" />
-                </ContentCard>
-              </Col>
-            </Row>*/}
+            </Row>
+            <div
+              style={{
+                display: currentConfig.boxDistribution === 'fixed' ? 'block' : 'none',
+              }}
+            >
+              <Row>
+                <Title
+                  title={`Box Size`}
+                  subTitle={'Choose how many sessions can be opened'}
+                  size="md"
+                  suffixComponent={
+                    <div style={{ display: 'flex' }}>
+                      <div
+                        style={{
+                          display:
+                            JSON.stringify(currentConfig.fixedBoxSize) === JSON.stringify(savedConfig.fixedBoxSize) ||
+                            !enabledFixedBoxSizeConfig
+                              ? 'none'
+                              : 'block',
+                        }}
+                      >
+                        <IconButton
+                          size="sm"
+                          hasBorder={true}
+                          icon={<ArrowUturnLeftIcon />}
+                          onClick={() => {
+                            setEnabledFixedBoxSizeConfig(!enabledFixedBoxSizeConfig);
+                            setCurrentConfig({ ...currentConfig, fixedBoxSize: savedConfig.fixedBoxSize });
+                          }}
+                        />
+                      </div>
+                      <IconButton
+                        size="sm"
+                        hasBorder={true}
+                        style={{ marginLeft: '0.3em' }}
+                        icon={enabledFixedBoxSizeConfig ? <LockOpenIcon /> : <LockClosedIcon />}
+                        onClick={() => setEnabledFixedBoxSizeConfig(!enabledFixedBoxSizeConfig)}
+                      />
+                    </div>
+                  }
+                />
+              </Row>
+              <Row className="mb-4">
+                <Col md={6}>
+                  <ContentCard
+                    hover
+                    selected={currentConfig.fixedBoxSize === 'small'}
+                    disabled={!enabledFixedBoxSizeConfig}
+                    style={{ width: '100%', height: '400px', display: 'flex', flexDirection: 'column' }}
+                    onClick={() => setCurrentConfig({ ...currentConfig, fixedBoxSize: 'small' })}
+                  >
+                    <div style={{ flexShrink: 0 }}>
+                      <Title title={'Small'} subTitle={'9 sessions available'} size="md" />
+                    </div>
+                    <div className={`grid-container example small box-number-${currentConfig.showBoxNumber}`}>
+                      <div className="box" id="1">
+                        <div className="example-box-number">1</div>
+                      </div>
+                      <div className="box" id="2">
+                        <div className="example-box-number">2</div>
+                      </div>
+                      <div className="box" id="3">
+                        <div className="example-box-number">3</div>
+                      </div>
+                      <div className="box" id="4">
+                        <div className="example-box-number">4</div>
+                      </div>
+                      <div className="box" id="5">
+                        <div className="example-box-number">5</div>
+                      </div>
+                      <div className="box" id="6">
+                        <div className="example-box-number">6</div>
+                      </div>
+                      <div className="box" id="7">
+                        <div className="example-box-number">7</div>
+                      </div>
+                      <div className="box" id="8">
+                        <div className="example-box-number">8</div>
+                      </div>
+                      <div className="box" id="9">
+                        <div className="example-box-number">9</div>
+                      </div>
+                    </div>
+                  </ContentCard>
+                </Col>
+                <Col md={6}>
+                  <ContentCard
+                    hover
+                    selected={currentConfig.fixedBoxSize === 'large'}
+                    disabled={!enabledFixedBoxSizeConfig}
+                    style={{ width: '100%', height: '400px', display: 'flex', flexDirection: 'column' }}
+                    onClick={() => setCurrentConfig({ ...currentConfig, fixedBoxSize: 'large' })}
+                  >
+                    <div style={{ flexShrink: 0 }}>
+                      <Title title={'Large'} subTitle={'6 sessions available'} size="md" />
+                    </div>
+                    <div className={`grid-container example large box-number-${currentConfig.showBoxNumber}`}>
+                      <div className="box" id="1">
+                        <div className="example-box-number">1</div>
+                      </div>
+                      <div className="box" id="2">
+                        <div className="example-box-number">2</div>
+                      </div>
+                      <div className="box" id="3">
+                        <div className="example-box-number">3</div>
+                      </div>
+                      <div className="box" id="4">
+                        <div className="example-box-number">4</div>
+                      </div>
+                      <div className="box" id="5">
+                        <div className="example-box-number">5</div>
+                      </div>
+                      <div className="box" id="6">
+                        <div className="example-box-number">6</div>
+                      </div>
+                    </div>
+                  </ContentCard>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Title
+                    title={`Box Numbers`}
+                    size="md"
+                    suffixComponent={
+                      <div style={{ display: 'flex' }}>
+                        <div
+                          style={{
+                            display:
+                              JSON.stringify(currentConfig.showBoxNumber) ===
+                                JSON.stringify(savedConfig.showBoxNumber) || !enabledBoxNumbersConfig
+                                ? 'none'
+                                : 'block',
+                          }}
+                        >
+                          <IconButton
+                            size="sm"
+                            hasBorder={true}
+                            icon={<ArrowUturnLeftIcon />}
+                            onClick={() => {
+                              setEnableBoxNumbersConfig(!enabledBoxNumbersConfig);
+                              setCurrentConfig({ ...currentConfig, showBoxNumber: savedConfig.showBoxNumber });
+                            }}
+                          />
+                        </div>
+                        <IconButton
+                          size="sm"
+                          hasBorder={true}
+                          style={{ marginLeft: '0.3em' }}
+                          icon={enabledBoxNumbersConfig ? <LockOpenIcon /> : <LockClosedIcon />}
+                          onClick={() => setEnableBoxNumbersConfig(!enabledBoxNumbersConfig)}
+                        />
+                      </div>
+                    }
+                  />
+                  <FormControl submitButton={false}>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em' }}>
+                      <FormSwitch
+                        size="sm"
+                        checked={currentConfig.showBoxNumber}
+                        disabled={!enabledBoxNumbersConfig}
+                        onChange={() =>
+                          setCurrentConfig({
+                            ...currentConfig,
+                            showBoxNumber: !currentConfig.showBoxNumber,
+                          })
+                        }
+                      />
+                      <Text noMargin>
+                        <span style={{ marginLeft: '0.5em' }}>Show Numbers</span>
+                      </Text>
+                    </div>
+                  </FormControl>
+                </Col>
+                <Col md={6}></Col>
+              </Row>
+            </div>
+
             <Row>
               <div style={{ display: 'flex', justifyContent: `end`, visibility: hasChanges ? 'visible' : 'hidden' }}>
                 <Button text="Cancel" size="sm" type="light" onClick={() => handleShowCancelModal()} />

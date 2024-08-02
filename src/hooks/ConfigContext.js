@@ -7,6 +7,9 @@ function getSavedConfig() {
   const config = {
     title: 'Redemption Multi Sessions',
     theme: 'light',
+    showBoxNumber: false,
+    boxDistribution: 'fixed',
+    fixedBoxSize: 'large',
     cardBalance: {
       showTickets: true,
       showCredits: true,

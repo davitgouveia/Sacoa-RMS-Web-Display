@@ -3,18 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import './ActiveSessions.css';
 
-import { Row } from 'react-bootstrap';
-
 import { ConfigContext } from '../../hooks/ConfigContext.js';
-import { TicketIcon, ReceiptRefundIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 
-import DefaultPage from '../../components/DefaultPage/DefaultPage.tsx';
 import ContentCard from '../../components/ContentCard/ContentCard.tsx';
-import SubContentCard from '../../components/SubContentCard/SubContentCardComponent.js';
 import Title from '../../components/Title/Title.tsx';
-import ListItem from '../../components/ListItem/ListItem.js';
 import ContentNotFound from '../../components/ContentNotFound/ContentNotFound.tsx';
-import Text from '../../components/Text/Text.tsx';
+import SessionCard from '../../components/Session Card/SessionCard.js';
 
 function ActiveSessions() {
   const { config } = useContext(ConfigContext);
@@ -22,31 +16,19 @@ function ActiveSessions() {
 
   const [sessions, setSessions] = useState([]);
   //const [sessionTimeout, setSessionTimeout] = useState(60000);
+  const [sessionBox1, setSessionBox1] = useState({});
+  const [sessionBox2, setSessionBox2] = useState({});
+  const [sessionBox3, setSessionBox3] = useState({});
+  const [sessionBox4, setSessionBox4] = useState({});
+  const [sessionBox5, setSessionBox5] = useState({});
+  const [sessionBox6, setSessionBox6] = useState({});
+  const [sessionBox7, setSessionBox7] = useState({});
+  const [sessionBox8, setSessionBox8] = useState({});
+  const [sessionBox9, setSessionBox9] = useState({});
 
   const [cardBalanceSessions, setCardBalanceSessions] = useState([]);
   //const [cardBalanceSessionTimeout, setCardBalanceSessionTimeout] = useState(60000);
   const [hasConnection, setHasConnection] = useState(true);
-
-  const redemptionSession = {
-    label: 'REDEMPTION',
-    icon: <TicketIcon />,
-  };
-
-  const refundSession = {
-    label: 'REFUND',
-    icon: <ReceiptRefundIcon />,
-  };
-
-  const ticketTransferSession = {
-    label: 'TICKET TRANSFER',
-    icon: <CreditCardIcon />,
-  };
-
-  const sessionTypes = new Map([
-    [1, redemptionSession],
-    [2, refundSession],
-    [3, ticketTransferSession],
-  ]);
 
   useEffect(() => {
     async function getConfig() {
@@ -96,219 +78,121 @@ function ActiveSessions() {
   }, [hasConnection]);
 
   return (
-    <DefaultPage
-      fluid
-      title={config.title}
-      suffixComponent={
-        <img
-          src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png"
-          alt="Logo"
-          width={200}
-          onClick={() => navigate('/settings')}
+    <div style={{ display: `flex`, flexDirection: `column`, height: '100vh' }}>
+      <header className="sessions-header">
+        <Title
+          title={config.title}
+          size="xl"
+          suffixComponent={
+            <img
+              src="https://seeklogo.com/images/S/Sacoa-logo-C8B8C1B61A-seeklogo.com.png"
+              alt="logo-preview"
+              width={200}
+              onClick={() => navigate('/settings')}
+            />
+          }
+          noMargin
         />
-      }
-    >
-      {hasConnection ? (
-        <>
-          <div className="redemption-sessions-container">
-            <div className="d-flex justify-content-center flex-wrap">
-              {sessions && sessions.length > 0 && (
-                <>
-                  {sessions.map(
-                    ({ card_number, card_tickets, session_color, data, total_tickets_of_session, session_type }) => (
-                      <ContentCard style={{ maxWidth: '550px', margin: '0.3em' }}>
-                        <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '1em' }}>
-                          <div
-                            className="color-indicator"
-                            style={{
-                              height: '55px',
-                              minWidth: '55px',
-                              marginRight: '0.5em',
-                              border: '2px solid var(--border-color)',
-                              backgroundColor: session_color,
-                              borderRadius: 'var(--default-border-radius)',
-                            }}
-                          />
-                          <Title
-                            size="lg"
-                            title={`${card_number}`}
-                            subTitle={`Tickets: ${card_tickets}`}
-                            noMargin
-                            suffixComponent={
-                              <div>
-                                <Text noMargin textAlign="end">
-                                  Total:
-                                  <span style={{ color: 'var(--title-color)', fontWeight: '600', marginLeft: '0.3em' }}>
-                                    {total_tickets_of_session}
-                                  </span>
-                                </Text>
-                                <Text noMargin textAlign="end" size="lg">
-                                  Balance:
-                                  <span
-                                    style={{
-                                      marginLeft: '0.3em',
-                                      color:
-                                        card_tickets + total_tickets_of_session < 0
-                                          ? 'var(--danger-text-color)'
-                                          : 'var(--success-text-color)',
-                                    }}
-                                  >
-                                    <b>{card_tickets + total_tickets_of_session}</b>
-                                  </span>
-                                </Text>
-                              </div>
-                            }
-                          />
-                        </div>
-                        <Row>
-                          <>
-                            <Title
-                              prefixIcon={sessionTypes.get(session_type).icon}
-                              size="lg"
-                              title={sessionTypes.get(session_type).label}
-                            />
-                          </>
+      </header>
 
-                          {data.length >= 1 ? (
-                            data.map((obj) =>
-                              session_type === 1 || session_type === 2 ? (
-                                <ListItem
-                                  key={obj.item_barcode}
-                                  text={`${obj.item_name}`}
-                                  subtext={obj.item_barcode}
-                                  type="subcard"
-                                  suffixComponent={
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                      <span
-                                        style={{ display: 'flex', alignItems: 'center', color: 'var(--text-color)' }}
-                                      >
-                                        <Text fontWeight="600" size="lg" color={'var(--title-color)'} noMargin>
-                                          {obj.total_price}
-                                        </Text>
-                                        <TicketIcon width={24} style={{ marginLeft: '0.3em' }} />
-                                      </span>
-                                      <Text size="md" noMargin textAlign="end">
-                                        <span style={{ fontSize: '14px' }}>{obj.item_quantity}x</span>
-                                        {obj.item_price}
-                                      </Text>
-                                    </div>
-                                  }
-                                />
-                              ) : session_type === 3 ? (
-                                <ListItem
-                                  key={obj.donor_card_number}
-                                  text={`${obj.donor_card_number}`}
-                                  type="subcard"
-                                  suffixComponent={
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                      <span
-                                        style={{ display: 'flex', alignItems: 'center', color: 'var(--text-color)' }}
-                                      >
-                                        <Text fontWeight="600" size="lg" color={'var(--title-color)'} noMargin>
-                                          {obj.tickets_to_transfer}
-                                        </Text>
-                                        <TicketIcon width={24} style={{ marginLeft: '0.3em' }} />
-                                      </span>
-                                    </div>
-                                  }
-                                />
-                              ) : null
-                            )
-                          ) : (
-                            <ListItem text={'Empty'} type="subcard" />
-                          )}
-                        </Row>
-                      </ContentCard>
-                    )
-                  )}
-                </>
-              )}{' '}
+      {hasConnection ? (
+        config.boxDistribution === 'fixed' ? (
+          <div className={`grid-container ${config.fixedBoxSize} box-number-${config.showBoxNumber}`}>
+            <div className="box" id="1">
+              {Object.keys(sessionBox1).length > 0 ? (
+                <SessionCard session={sessionBox1} />
+              ) : (
+                <div className="box-number">1</div>
+              )}
             </div>
-          </div>
-          <div className="card-balance-sessions-container">
-            {cardBalanceSessions && cardBalanceSessions.length > 0 && (
+            <div className="box" id="2">
+              {Object.keys(sessionBox2).length > 0 ? (
+                <SessionCard session={sessionBox2} />
+              ) : (
+                <div className="box-number">2</div>
+              )}
+            </div>
+            <div className="box" id="3">
+              {Object.keys(sessionBox3).length > 0 ? (
+                <SessionCard session={sessionBox3} />
+              ) : (
+                <div className="box-number">3</div>
+              )}
+            </div>
+            <div className="box" id="4">
+              {Object.keys(sessionBox4).length > 0 ? (
+                <SessionCard session={sessionBox4} />
+              ) : (
+                <div className="box-number">4</div>
+              )}
+            </div>
+            <div className="box" id="5">
+              {Object.keys(sessionBox5).length > 0 ? (
+                <SessionCard session={sessionBox5} />
+              ) : (
+                <div className="box-number">5</div>
+              )}
+            </div>
+            <div className="box" id="6">
+              {Object.keys(sessionBox6).length > 0 ? (
+                <SessionCard session={sessionBox6} />
+              ) : (
+                <div className="box-number">6</div>
+              )}
+            </div>
+            {config.fixedBoxSize === 'small' && (
               <>
-                <hr />
-                <Title title={`Card Balance`} size="lg" />
-                <div className="d-flex justify-content-center flex-wrap">
-                  {cardBalanceSessions.map(({ card_number, credits, bonus, courtesy, tickets }) => (
-                    <ContentCard style={{ maxWidth: 'fit-content', margin: '0.3em' }}>
-                      {!config.cardBalance.showTickets &&
-                      !config.cardBalance.showCredits &&
-                      !config.cardBalance.showBonus &&
-                      !config.cardBalance.showCourtesy ? (
-                        <Title size="lg" title={`Card: ${card_number}`} noMargin />
-                      ) : (
-                        <>
-                          {' '}
-                          <Title size="lg" title={`Card: ${card_number}`} />
-                          <Row>
-                            <SubContentCard>
-                              <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                                {config.cardBalance.showTickets && (
-                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text size="sm" noMargin>
-                                      Tickets
-                                    </Text>{' '}
-                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                      {tickets}
-                                    </Text>
-                                  </div>
-                                )}
-                                {config.cardBalance.showCredits && (
-                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text size="sm" noMargin>
-                                      Credits
-                                    </Text>{' '}
-                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                      {credits}
-                                    </Text>
-                                  </div>
-                                )}
-                                {config.cardBalance.showBonus && (
-                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text size="sm" noMargin>
-                                      Bonus
-                                    </Text>{' '}
-                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                      {bonus}
-                                    </Text>
-                                  </div>
-                                )}
-                                {config.cardBalance.showCourtesy && (
-                                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text size="sm" noMargin>
-                                      Courtesy
-                                    </Text>{' '}
-                                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                      {courtesy}
-                                    </Text>
-                                  </div>
-                                )}
-                              </div>
-                            </SubContentCard>
-                          </Row>
-                        </>
-                      )}
-                    </ContentCard>
-                  ))}
+                <div className="box" id="7">
+                  {Object.keys(sessionBox7).length > 0 ? (
+                    <SessionCard session={sessionBox7} />
+                  ) : (
+                    <div className="box-number">7</div>
+                  )}
+                </div>
+                <div className="box" id="8">
+                  {Object.keys(sessionBox8).length > 0 ? (
+                    <SessionCard session={sessionBox8} />
+                  ) : (
+                    <div className="box-number">8</div>
+                  )}
+                </div>
+                <div className="box" id="9">
+                  {Object.keys(sessionBox9).length > 0 ? (
+                    <SessionCard session={sessionBox9} />
+                  ) : (
+                    <div className="box-number">9</div>
+                  )}
                 </div>
               </>
-            )}{' '}
+            )}
           </div>
-        </>
+        ) : config.boxDistribution === 'dynamic' ? (
+          <>
+            <div className="dynamic-sessions-container">
+              <div className="d-flex justify-content-center flex-wrap">
+                {sessions && sessions.length > 0 && (
+                  <>
+                    {sessions.map((session) => (
+                      <SessionCard session={session} />
+                    ))}
+                  </>
+                )}{' '}
+              </div>
+            </div>
+          </>
+        ) : null
       ) : (
         <ContentCard>
           <ContentNotFound
             type="warning"
             title="Failed to communicate with the service"
-            text="An error occured on the network"
+            text="An error occurred on the network"
             buttonText="Contact Support"
             buttonAction={() => console.log('contact support')}
           />
         </ContentCard>
       )}
-    </DefaultPage>
+    </div>
   );
 }
 
