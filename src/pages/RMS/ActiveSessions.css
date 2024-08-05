@@ -15,24 +15,30 @@
   }
 
   .dynamic-sessions-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     padding: 1.5em;
+
+    .session-card{
+      width: 550px;
+    }
   }
 
 
   
   .grid-container {
-    padding: 2em;
+    padding: 1em;
     display: grid;
-    grid-template-columns: auto auto auto; /* Responsive columns */
-    gap: 20px;
+    gap: 5px;
     flex-grow: 1; /* Ensure the grid grows to take remaining space */
     align-items: center;
-    justify-items: center;
+    justify-content: center;
   }
   
   .box {
     background-color: var(--rms-box-background);
-    border: 1px solid transparent;
+    outline: 1px solid transparent;
     border-radius: var(--default-border-radius);
     -webkit-box-shadow: inset -2px -2px 8px -7px rgba(110,110,110,0.35);
     -moz-box-shadow: inset -2px -2px 8px -7px rgba(110,110,110,0.35);
@@ -55,13 +61,29 @@
 	}
 }
   
-  .grid-container.large .box {
-    width: 100%; /* Full width within the grid item */
-    height: 100%;
+  .grid-container.large
+  {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    .box {
+      width: 100%; /* Full width within the grid item */
+      height: 100%;
+      overflow: hidden; 
+    }
   }
   
-  .grid-container.small .box {
-    width: 100%; /* Full width within the grid item */
-    height: 100%;
+  
+  .grid-container.small 
+  {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    .box {
+      width: 100%; /* Full width within the grid item */
+      height: 100%;
+      overflow: hidden; 
+    }
   }
+  
   

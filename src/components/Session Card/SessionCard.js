@@ -1,13 +1,18 @@
 import React from 'react';
+import { useContext } from 'react';
+import { ConfigContext } from '../../hooks/ConfigContext.js';
+
+import './SessionCard.css';
 
 import { Row } from 'react-bootstrap';
 
 import ContentCard from '../ContentCard/ContentCard.tsx';
+import SubContentCard from '../SubContentCard/SubContentCardComponent.js';
 import ListItem from '../ListItem/ListItem';
 import Title from '../Title/Title.tsx';
 import Text from '../Text/Text.tsx';
 
-import { TicketIcon, ReceiptRefundIcon, CreditCardIcon } from '@heroicons/react/24/outline';
+import { TicketIcon, ReceiptRefundIcon, CreditCardIcon, WalletIcon } from '@heroicons/react/24/outline';
 
 function SessionCard({ session }) {
   const redemptionSession = {
@@ -25,14 +30,22 @@ function SessionCard({ session }) {
     icon: <CreditCardIcon />,
   };
 
+  const cardBalanceSession = {
+    label: 'CARD BALANCE',
+    icon: <WalletIcon />,
+  };
+
   const sessionTypes = new Map([
     [1, redemptionSession],
     [2, refundSession],
     [3, ticketTransferSession],
+    [4, cardBalanceSession],
   ]);
 
+  const { config } = useContext(ConfigContext);
+
   return (
-    <ContentCard style={{ maxWidth: '550px', height: '100%' }}>
+    <ContentCard classParams={'session-card'} style={{ height: 'inherit' }}>
       <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '1em' }}>
         <div
           className="color-indicator"
@@ -82,7 +95,53 @@ function SessionCard({ session }) {
           size="lg"
           title={sessionTypes.get(session.session_type).label}
         />
-        {session.data.length >= 1 ? (
+        {session.session_type === 4 ? (
+          <SubContentCard style={{ padding: `0.5em` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
+              {config.cardBalance.showTickets && (
+                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text size="sm" noMargin>
+                    <span id="balance-label">Tickets</span>
+                  </Text>{' '}
+                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                    <span id="balance-value">{session.card_balance.tickets}</span>
+                  </Text>
+                </div>
+              )}
+              {config.cardBalance.showCredits && (
+                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text size="sm" noMargin>
+                    <span id="balance-label">Credits</span>
+                  </Text>{' '}
+                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                    <span id="balance-value">{session.card_balance.credits}</span>
+                  </Text>
+                </div>
+              )}
+
+              {config.cardBalance.showBonus && (
+                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text size="sm" noMargin>
+                    <span id="balance-label">Bonus</span>
+                  </Text>{' '}
+                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                    <span id="balance-value">{session.card_balance.bonus}</span>
+                  </Text>
+                </div>
+              )}
+              {config.cardBalance.showCourtesy && (
+                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Text size="sm" noMargin>
+                    <span id="balance-label">Courtesy</span>
+                  </Text>{' '}
+                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                    <span id="balance-value">{session.card_balance.courtesy}</span>
+                  </Text>
+                </div>
+              )}
+            </div>
+          </SubContentCard>
+        ) : session.data.length >= 1 ? (
           session.data.map((obj) =>
             session.session_type === 1 || session.session_type === 2 ? (
               <ListItem

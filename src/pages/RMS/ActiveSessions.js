@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './ActiveSessions.css';
@@ -26,8 +26,6 @@ function ActiveSessions() {
   const [sessionBox8, setSessionBox8] = useState({});
   const [sessionBox9, setSessionBox9] = useState({});
 
-  const [cardBalanceSessions, setCardBalanceSessions] = useState([]);
-  //const [cardBalanceSessionTimeout, setCardBalanceSessionTimeout] = useState(60000);
   const [hasConnection, setHasConnection] = useState(true);
 
   useEffect(() => {
@@ -47,7 +45,29 @@ function ActiveSessions() {
     getConfig();
   }, []);
 
-  async function getSessions() {
+  useEffect(() => {
+    function assignSessionToBoxes(sessions) {
+      if (sessions) {
+        setSessionBox1(sessions.find((session) => session.box_position === 1) || {});
+        setSessionBox2(sessions.find((session) => session.box_position === 2) || {});
+        setSessionBox3(sessions.find((session) => session.box_position === 3) || {});
+        setSessionBox4(sessions.find((session) => session.box_position === 4) || {});
+        setSessionBox5(sessions.find((session) => session.box_position === 5) || {});
+        setSessionBox6(sessions.find((session) => session.box_position === 6) || {});
+        if (config.fixedBoxSize === 'small') {
+          setSessionBox7(sessions.find((session) => session.box_position === 7) || {});
+          setSessionBox8(sessions.find((session) => session.box_position === 8) || {});
+          setSessionBox9(sessions.find((session) => session.box_position === 9) || {});
+        }
+      }
+    }
+
+    if (config.boxDistribution === 'fixed' && sessions) {
+      assignSessionToBoxes(sessions);
+    }
+  }, [sessions, config]);
+
+  const getSessions = useCallback(async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_RWS_API_ADDRESS}/rms/sessions`);
       const data = await response.json();
@@ -55,27 +75,15 @@ function ActiveSessions() {
     } catch (error) {
       console.error('Error fetching sessions:', error);
     }
-  }
-
-  async function getCardBalanceSessions() {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_RWS_API_ADDRESS}/rms/cardBalanceSessions`);
-      const data = await response.json();
-      setCardBalanceSessions(data.map((session) => ({ ...session })));
-    } catch (error) {
-      console.error('Error fetching sessions:', error);
-    }
-  }
+  }, []);
 
   useEffect(() => {
     if (hasConnection) {
-      const interval = setInterval(() => {
-        getSessions();
-        getCardBalanceSessions();
-      }, 200);
-      return () => clearInterval(interval);
+      getSessions(); // Fetch initially
+      const interval = setInterval(getSessions, 200); // Set interval to fetch repeatedly
+      return () => clearInterval(interval); // Clear interval on cleanup
     }
-  }, [hasConnection]);
+  }, [hasConnection, getSessions]);
 
   return (
     <div style={{ display: `flex`, flexDirection: `column`, height: '100vh' }}>
@@ -169,15 +177,13 @@ function ActiveSessions() {
         ) : config.boxDistribution === 'dynamic' ? (
           <>
             <div className="dynamic-sessions-container">
-              <div className="d-flex justify-content-center flex-wrap">
-                {sessions && sessions.length > 0 && (
-                  <>
-                    {sessions.map((session) => (
-                      <SessionCard session={session} />
-                    ))}
-                  </>
-                )}{' '}
-              </div>
+              {sessions && sessions.length > 0 && (
+                <>
+                  {sessions.map((session) => (
+                    <SessionCard session={session} />
+                  ))}
+                </>
+              )}{' '}
             </div>
           </>
         ) : null
