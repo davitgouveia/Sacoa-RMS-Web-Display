@@ -26,7 +26,7 @@ input[type="color"]::-webkit-color-swatch {
     align-items: center;
     width: 100%;
     height: 100%;
-    font-size: 3em;
+    font-size: 2em;
     color: var(--rms-box-number-color)
   }
 

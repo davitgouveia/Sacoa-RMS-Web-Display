@@ -134,20 +134,25 @@ function ActiveSessions() {
                 <div className="box-number">4</div>
               )}
             </div>
-            <div className="box" id="5">
-              {Object.keys(sessionBox5).length > 0 ? (
-                <SessionCard session={sessionBox5} />
-              ) : (
-                <div className="box-number">5</div>
-              )}
-            </div>
-            <div className="box" id="6">
-              {Object.keys(sessionBox6).length > 0 ? (
-                <SessionCard session={sessionBox6} />
-              ) : (
-                <div className="box-number">6</div>
-              )}
-            </div>
+            {config.fixedBoxSize !== 'large' && (
+              <>
+                <div className="box" id="5">
+                  {Object.keys(sessionBox5).length > 0 ? (
+                    <SessionCard session={sessionBox5} />
+                  ) : (
+                    <div className="box-number">5</div>
+                  )}
+                </div>
+                <div className="box" id="6">
+                  {Object.keys(sessionBox6).length > 0 ? (
+                    <SessionCard session={sessionBox6} />
+                  ) : (
+                    <div className="box-number">6</div>
+                  )}
+                </div>
+              </>
+            )}
+
             {config.fixedBoxSize === 'small' && (
               <>
                 <div className="box" id="7">

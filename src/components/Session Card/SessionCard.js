@@ -4,8 +4,6 @@ import { ConfigContext } from '../../hooks/ConfigContext.js';
 
 import './SessionCard.css';
 
-import { Row } from 'react-bootstrap';
-
 import ContentCard from '../ContentCard/ContentCard.tsx';
 import SubContentCard from '../SubContentCard/SubContentCardComponent.js';
 import ListItem from '../ListItem/ListItem';
@@ -45,8 +43,28 @@ function SessionCard({ session }) {
   const { config } = useContext(ConfigContext);
 
   return (
-    <ContentCard classParams={'session-card'} style={{ height: 'inherit' }}>
-      <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '1em' }}>
+    <ContentCard
+      classParams={'session-card'}
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: `column`,
+        overflow: 'hidden',
+        height: `100%`,
+        alignContent: `flex-start`,
+      }}
+    >
+      <div
+        className="session-card-header"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          marginBottom: '1em',
+          width: '100%',
+          height: 'fit-content',
+          flexShrink: 0,
+        }}
+      >
         <div
           className="color-indicator"
           style={{
@@ -89,58 +107,67 @@ function SessionCard({ session }) {
           }
         />
       </div>
-      <Row>
+      <div className="session-card-label" style={{ width: '100%', height: 'fit-content', marginBottom: '1em' }}>
         <Title
           prefixIcon={sessionTypes.get(session.session_type).icon}
           size="lg"
           title={sessionTypes.get(session.session_type).label}
+          noMargin
         />
-        {session.session_type === 4 ? (
-          <SubContentCard style={{ padding: `0.5em` }}>
-            <div style={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
-              {config.cardBalance.showTickets && (
-                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Text size="sm" noMargin>
-                    <span id="balance-label">Tickets</span>
-                  </Text>{' '}
-                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                    <span id="balance-value">{session.card_balance.tickets}</span>
-                  </Text>
-                </div>
-              )}
-              {config.cardBalance.showCredits && (
-                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Text size="sm" noMargin>
-                    <span id="balance-label">Credits</span>
-                  </Text>{' '}
-                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                    <span id="balance-value">{session.card_balance.credits}</span>
-                  </Text>
-                </div>
-              )}
+      </div>
 
-              {config.cardBalance.showBonus && (
-                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Text size="sm" noMargin>
-                    <span id="balance-label">Bonus</span>
-                  </Text>{' '}
-                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                    <span id="balance-value">{session.card_balance.bonus}</span>
-                  </Text>
-                </div>
-              )}
-              {config.cardBalance.showCourtesy && (
-                <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <Text size="sm" noMargin>
-                    <span id="balance-label">Courtesy</span>
-                  </Text>{' '}
-                  <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                    <span id="balance-value">{session.card_balance.courtesy}</span>
-                  </Text>
-                </div>
-              )}
-            </div>
-          </SubContentCard>
+      <div className="session-card-data" style={{ width: '100%', flexGrow: 1, overflow: `scroll`, height: `0px` }}>
+        {session.session_type === 4 ? (
+          config.cardBalance.showTickets ||
+          config.cardBalance.showCredits ||
+          config.cardBalance.showBonus ||
+          config.cardBalance.showCourtesy ? (
+            <SubContentCard style={{ padding: `0.5em` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
+                {config.cardBalance.showTickets && (
+                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text size="sm" noMargin>
+                      <span id="balance-label">Tickets</span>
+                    </Text>{' '}
+                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                      <span id="balance-value">{session.card_balance.tickets}</span>
+                    </Text>
+                  </div>
+                )}
+                {config.cardBalance.showCredits && (
+                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text size="sm" noMargin>
+                      <span id="balance-label">Credits</span>
+                    </Text>{' '}
+                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                      <span id="balance-value">{session.card_balance.credits}</span>
+                    </Text>
+                  </div>
+                )}
+
+                {config.cardBalance.showBonus && (
+                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text size="sm" noMargin>
+                      <span id="balance-label">Bonus</span>
+                    </Text>{' '}
+                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                      <span id="balance-value">{session.card_balance.bonus}</span>
+                    </Text>
+                  </div>
+                )}
+                {config.cardBalance.showCourtesy && (
+                  <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text size="sm" noMargin>
+                      <span id="balance-label">Courtesy</span>
+                    </Text>{' '}
+                    <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
+                      <span id="balance-value">{session.card_balance.courtesy}</span>
+                    </Text>
+                  </div>
+                )}
+              </div>
+            </SubContentCard>
+          ) : null
         ) : session.data.length >= 1 ? (
           session.data.map((obj) =>
             session.session_type === 1 || session.session_type === 2 ? (
@@ -149,6 +176,7 @@ function SessionCard({ session }) {
                 text={`${obj.item_name}`}
                 subtext={obj.item_barcode}
                 type="subcard"
+                style={{ padding: `0.5em` }}
                 suffixComponent={
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ display: 'flex', alignItems: 'center', color: 'var(--text-color)' }}>
@@ -185,7 +213,7 @@ function SessionCard({ session }) {
         ) : (
           <ListItem text={'Empty'} type="subcard" />
         )}
-      </Row>
+      </div>
     </ContentCard>
   );
 }

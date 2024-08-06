@@ -1,7 +1,25 @@
-#balance-label{
- 
+.dynamic-sessions-container{
+   display: flex;
+   justify-content: center;
+
+   .session-card{
+      width: 570px;
+      height: auto !important;
+      margin: 0 1em 0 1em;
+
+   .session-card-data {
+      height: auto !important;
+   }
+
+   }
 }
 
-#balance-value{
-   font-size: 1.2vw;
+.grid-container{
+   *::-webkit-scrollbar {
+     display: none;
+      
+      
+    }
+   
 }
+

@@ -656,12 +656,12 @@ function Settings() {
                 />
               </Row>
               <Row className="mb-4">
-                <Col md={6}>
+                <Col md={4}>
                   <ContentCard
                     hover
                     selected={currentConfig.fixedBoxSize === 'small'}
                     disabled={!enabledFixedBoxSizeConfig}
-                    style={{ width: '100%', height: '400px', display: 'flex', flexDirection: 'column' }}
+                    style={{ width: '100%', height: '300px', display: 'flex', flexDirection: 'column' }}
                     onClick={() => setCurrentConfig({ ...currentConfig, fixedBoxSize: 'small' })}
                   >
                     <div style={{ flexShrink: 0 }}>
@@ -698,18 +698,18 @@ function Settings() {
                     </div>
                   </ContentCard>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
                   <ContentCard
                     hover
-                    selected={currentConfig.fixedBoxSize === 'large'}
+                    selected={currentConfig.fixedBoxSize === 'medium'}
                     disabled={!enabledFixedBoxSizeConfig}
-                    style={{ width: '100%', height: '400px', display: 'flex', flexDirection: 'column' }}
-                    onClick={() => setCurrentConfig({ ...currentConfig, fixedBoxSize: 'large' })}
+                    style={{ width: '100%', height: '300px', display: 'flex', flexDirection: 'column' }}
+                    onClick={() => setCurrentConfig({ ...currentConfig, fixedBoxSize: 'medium' })}
                   >
                     <div style={{ flexShrink: 0 }}>
-                      <Title title={'Large'} subTitle={'6 sessions available'} size="md" />
+                      <Title title={'Medium'} subTitle={'6 sessions available'} size="md" />
                     </div>
-                    <div className={`grid-container example large box-number-${currentConfig.showBoxNumber}`}>
+                    <div className={`grid-container example medium box-number-${currentConfig.showBoxNumber}`}>
                       <div className="box" id="1">
                         <div className="example-box-number">1</div>
                       </div>
@@ -727,6 +727,33 @@ function Settings() {
                       </div>
                       <div className="box" id="6">
                         <div className="example-box-number">6</div>
+                      </div>
+                    </div>
+                  </ContentCard>
+                </Col>
+                <Col md={4}>
+                  <ContentCard
+                    hover
+                    selected={currentConfig.fixedBoxSize === 'large'}
+                    disabled={!enabledFixedBoxSizeConfig}
+                    style={{ width: '100%', height: '300px', display: 'flex', flexDirection: 'column' }}
+                    onClick={() => setCurrentConfig({ ...currentConfig, fixedBoxSize: 'large' })}
+                  >
+                    <div style={{ flexShrink: 0 }}>
+                      <Title title={'Large'} subTitle={'4 sessions available'} size="md" />
+                    </div>
+                    <div className={`grid-container example large box-number-${currentConfig.showBoxNumber}`}>
+                      <div className="box" id="1">
+                        <div className="example-box-number">1</div>
+                      </div>
+                      <div className="box" id="2">
+                        <div className="example-box-number">2</div>
+                      </div>
+                      <div className="box" id="3">
+                        <div className="example-box-number">3</div>
+                      </div>
+                      <div className="box" id="4">
+                        <div className="example-box-number">4</div>
                       </div>
                     </div>
                   </ContentCard>
@@ -790,6 +817,17 @@ function Settings() {
                 <Col md={6}></Col>
               </Row>
             </div>
+
+            <Row>
+              <Title title={'Administrative Tools'} />
+              <Button
+                text="Close All Sessions"
+                type="outline"
+                size="sm"
+                style={{ width: '200px' }}
+                onClick={() => fetch(`${process.env.REACT_APP_RWS_API_ADDRESS}/rms/closeAllSessions`)}
+              />
+            </Row>
 
             <Row>
               <div style={{ display: 'flex', justifyContent: `end`, visibility: hasChanges ? 'visible' : 'hidden' }}>
