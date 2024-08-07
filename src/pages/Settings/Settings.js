@@ -5,6 +5,7 @@ import { ThemeContext } from '../../styles/ThemeContext.js';
 import { ConfigContext } from '../../hooks/ConfigContext.js';
 
 import './settings.css';
+import mockSessions from './MockingSessions.js';
 
 import { useNavigate } from 'react-router-dom';
 import {
@@ -28,6 +29,8 @@ import FormSwitch from '../../components/FormSwitch/FormSwitch.tsx';
 import ListItem from '../../components/ListItem/ListItem.js';
 import ContentCard from '../../components/ContentCard/ContentCard.tsx';
 import SubContentCard from '../../components/SubContentCard/SubContentCardComponent.js';
+
+import SessionCard from '../../components/Session Card/SessionCard.js';
 
 function Settings() {
   const { theme, setColorTheme } = useContext(ThemeContext);
@@ -286,7 +289,7 @@ function Settings() {
             <Title title={'Preview'} size="lg" subTitle={'Preview your changes on the fly'} />
             <div
               style={{
-                height: '450px',
+                height: '420px',
                 border: '1px solid var(--card-border-color)',
                 display: 'flex',
                 flexDirection: 'column',
@@ -308,73 +311,10 @@ function Settings() {
                   noMargin
                 />
               </header>
-              <ContentCard style={{ maxWidth: '550px', margin: '1em' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', marginBottom: '1em' }}>
-                  <div
-                    className="color-indicator"
-                    style={{
-                      height: '55px',
-                      minWidth: '55px',
-                      marginRight: '0.5em',
-                      border: '2px solid var(--border-color)',
-                      backgroundColor: '#ff0000',
-                      borderRadius: 'var(--default-border-radius)',
-                    }}
-                  />
-                  <Title
-                    size="lg"
-                    title={`300000`}
-                    subTitle={`Tickets: 123456`}
-                    noMargin
-                    suffixComponent={
-                      <div>
-                        <Text noMargin textAlign="end">
-                          Total:
-                          <span style={{ fontWeight: '600', marginLeft: '0.3em', color: 'var(--title-color)' }}>
-                            123456
-                          </span>
-                        </Text>
-                        <Text noMargin textAlign="end" size="lg" color="var(--title-color)">
-                          Balance:
-                          <span
-                            style={{
-                              marginLeft: '0.3em',
-                              color: 'var(--danger-text-color)',
-                            }}
-                          >
-                            <b>-500</b>
-                          </span>
-                        </Text>
-                      </div>
-                    }
-                  />
-                </div>
-                <Row>
-                  <>
-                    <Title prefixIcon={<TicketIcon />} size="lg" title={'REDEMPTION'} />
-                  </>
 
-                  <ListItem
-                    text={`Cherry Lollipops`}
-                    subtext="123456789"
-                    type="subcard"
-                    suffixComponent={
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ display: 'flex', alignItems: 'center', color: 'var(--title-color)' }}>
-                          <Text fontWeight="600" size="lg" color="var(--title-color)" noMargin>
-                            1500
-                          </Text>
-                          <TicketIcon width={24} style={{ marginLeft: '0.3em' }} />
-                        </span>
-                        <Text size="md" noMargin textAlign="end">
-                          <span style={{ fontSize: `14px` }}>3x</span>
-                          500
-                        </Text>
-                      </div>
-                    }
-                  />
-                </Row>
-              </ContentCard>
+              <div style={{ width: '550px', height: '260px', margin: '1em' }}>
+                <SessionCard session={mockSessions[0]} />
+              </div>
             </div>
 
             <Row className="mb-4 mt-4">
@@ -493,65 +433,10 @@ function Settings() {
                 </FormControl>
               </Col>
 
-              <Col md={6} style={{ height: '210px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <ContentCard style={{ maxWidth: 'fit-content' }}>
-                  {!currentConfig.cardBalance.showTickets &&
-                  !currentConfig.cardBalance.showCredits &&
-                  !currentConfig.cardBalance.showBonus &&
-                  !currentConfig.cardBalance.showCourtesy ? (
-                    <Title size="lg" title={`Card: 123456`} noMargin />
-                  ) : (
-                    <>
-                      <Title size="lg" title={`Card: 123456`} />
-                      <Row>
-                        <SubContentCard>
-                          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                            {currentConfig.cardBalance.showTickets && (
-                              <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                <Text size="sm" noMargin>
-                                  Tickets
-                                </Text>{' '}
-                                <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                  12345
-                                </Text>
-                              </div>
-                            )}
-                            {currentConfig.cardBalance.showCredits && (
-                              <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                <Text size="sm" noMargin>
-                                  Credits
-                                </Text>{' '}
-                                <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                  12345
-                                </Text>
-                              </div>
-                            )}
-                            {currentConfig.cardBalance.showBonus && (
-                              <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                <Text size="sm" noMargin>
-                                  Bonus
-                                </Text>{' '}
-                                <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                  12345
-                                </Text>
-                              </div>
-                            )}
-                            {currentConfig.cardBalance.showCourtesy && (
-                              <div className="mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
-                                <Text size="sm" noMargin>
-                                  Courtesy
-                                </Text>{' '}
-                                <Text size="lg" fontWeight="600" noMargin color="var(--title-color)">
-                                  12345
-                                </Text>
-                              </div>
-                            )}
-                          </div>
-                        </SubContentCard>
-                      </Row>
-                    </>
-                  )}
-                </ContentCard>
+              <Col md={6} style={{ height: '260px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{ width: '550px', height: '250px', margin: '1em' }}>
+                  <SessionCard session={mockSessions[1]} mockConfig={currentConfig} />
+                </div>
               </Col>
             </Row>
             <Row>
@@ -625,32 +510,58 @@ function Settings() {
                   size="md"
                   suffixComponent={
                     <div style={{ display: 'flex' }}>
-                      <div
-                        style={{
-                          display:
-                            JSON.stringify(currentConfig.fixedBoxSize) === JSON.stringify(savedConfig.fixedBoxSize) ||
-                            !enabledFixedBoxSizeConfig
-                              ? 'none'
-                              : 'block',
-                        }}
-                      >
+                      <div style={{ display: 'flex', alignItems: 'center', marginRight: '0.5em' }}>
+                        <FormSwitch
+                          size="sm"
+                          checked={currentConfig.showBoxNumber}
+                          disabled={!enabledFixedBoxSizeConfig}
+                          onChange={() =>
+                            setCurrentConfig({
+                              ...currentConfig,
+                              showBoxNumber: !currentConfig.showBoxNumber,
+                            })
+                          }
+                        />
+                        <Text noMargin>
+                          <span style={{ marginLeft: '0.5em' }}>Show Box Numbers</span>
+                        </Text>
+                      </div>
+
+                      <div style={{ display: 'flex' }}>
+                        <div
+                          style={{
+                            visibility:
+                              (JSON.stringify(currentConfig.fixedBoxSize) ===
+                                JSON.stringify(savedConfig.fixedBoxSize) &&
+                                JSON.stringify(currentConfig.showBoxNumber) ===
+                                  JSON.stringify(savedConfig.showBoxNumber)) ||
+                              !enabledFixedBoxSizeConfig
+                                ? 'hidden'
+                                : 'visible',
+                          }}
+                        >
+                          <IconButton
+                            size="sm"
+                            hasBorder={true}
+                            icon={<ArrowUturnLeftIcon />}
+                            onClick={() => {
+                              setEnabledFixedBoxSizeConfig(!enabledFixedBoxSizeConfig);
+                              setCurrentConfig({
+                                ...currentConfig,
+                                fixedBoxSize: savedConfig.fixedBoxSize,
+                                showBoxNumber: savedConfig.showBoxNumber,
+                              });
+                            }}
+                          />
+                        </div>
                         <IconButton
                           size="sm"
                           hasBorder={true}
-                          icon={<ArrowUturnLeftIcon />}
-                          onClick={() => {
-                            setEnabledFixedBoxSizeConfig(!enabledFixedBoxSizeConfig);
-                            setCurrentConfig({ ...currentConfig, fixedBoxSize: savedConfig.fixedBoxSize });
-                          }}
+                          style={{ marginLeft: '0.3em' }}
+                          icon={enabledFixedBoxSizeConfig ? <LockOpenIcon /> : <LockClosedIcon />}
+                          onClick={() => setEnabledFixedBoxSizeConfig(!enabledFixedBoxSizeConfig)}
                         />
                       </div>
-                      <IconButton
-                        size="sm"
-                        hasBorder={true}
-                        style={{ marginLeft: '0.3em' }}
-                        icon={enabledFixedBoxSizeConfig ? <LockOpenIcon /> : <LockClosedIcon />}
-                        onClick={() => setEnabledFixedBoxSizeConfig(!enabledFixedBoxSizeConfig)}
-                      />
                     </div>
                   }
                 />
@@ -758,63 +669,6 @@ function Settings() {
                     </div>
                   </ContentCard>
                 </Col>
-              </Row>
-              <Row>
-                <Col md={6}>
-                  <Title
-                    title={`Box Numbers`}
-                    size="md"
-                    suffixComponent={
-                      <div style={{ display: 'flex' }}>
-                        <div
-                          style={{
-                            display:
-                              JSON.stringify(currentConfig.showBoxNumber) ===
-                                JSON.stringify(savedConfig.showBoxNumber) || !enabledBoxNumbersConfig
-                                ? 'none'
-                                : 'block',
-                          }}
-                        >
-                          <IconButton
-                            size="sm"
-                            hasBorder={true}
-                            icon={<ArrowUturnLeftIcon />}
-                            onClick={() => {
-                              setEnableBoxNumbersConfig(!enabledBoxNumbersConfig);
-                              setCurrentConfig({ ...currentConfig, showBoxNumber: savedConfig.showBoxNumber });
-                            }}
-                          />
-                        </div>
-                        <IconButton
-                          size="sm"
-                          hasBorder={true}
-                          style={{ marginLeft: '0.3em' }}
-                          icon={enabledBoxNumbersConfig ? <LockOpenIcon /> : <LockClosedIcon />}
-                          onClick={() => setEnableBoxNumbersConfig(!enabledBoxNumbersConfig)}
-                        />
-                      </div>
-                    }
-                  />
-                  <FormControl submitButton={false}>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5em' }}>
-                      <FormSwitch
-                        size="sm"
-                        checked={currentConfig.showBoxNumber}
-                        disabled={!enabledBoxNumbersConfig}
-                        onChange={() =>
-                          setCurrentConfig({
-                            ...currentConfig,
-                            showBoxNumber: !currentConfig.showBoxNumber,
-                          })
-                        }
-                      />
-                      <Text noMargin>
-                        <span style={{ marginLeft: '0.5em' }}>Show Numbers</span>
-                      </Text>
-                    </div>
-                  </FormControl>
-                </Col>
-                <Col md={6}></Col>
               </Row>
             </div>
 
