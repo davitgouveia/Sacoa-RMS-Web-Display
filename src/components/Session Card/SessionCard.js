@@ -50,6 +50,28 @@ function SessionCard({ session, mockConfig }) {
     }
   }, [mockConfig]);
 
+  const [showCardBalance, setShowCardBalance] = useState(false);
+
+  function checkShowCardBalance(usedConfig) {
+    if (
+      usedConfig.cardBalance.showTickets ||
+      usedConfig.cardBalance.showCredits ||
+      usedConfig.cardBalance.showBonus ||
+      usedConfig.cardBalance.showCourtesy
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    if (usedConfig) {
+      const status = checkShowCardBalance(usedConfig);
+      setShowCardBalance(status);
+    }
+  }, [usedConfig]);
+
   if (usedConfig) {
     return (
       <ContentCard
@@ -117,20 +139,21 @@ function SessionCard({ session, mockConfig }) {
           />
         </div>
         <div className="session-card-label" style={{ width: '100%', height: 'fit-content', marginBottom: '1em' }}>
-          <Title
-            prefixIcon={sessionTypes.get(session.session_type).icon}
-            size="lg"
-            title={sessionTypes.get(session.session_type).label}
-            noMargin
-          />
+          {!showCardBalance && session.session_type === 4 ? (
+            <Title size="lg" title={'READY TO OPERATE'} noMargin />
+          ) : (
+            <Title
+              prefixIcon={sessionTypes.get(session.session_type).icon}
+              size="lg"
+              title={sessionTypes.get(session.session_type).label}
+              noMargin
+            />
+          )}
         </div>
 
-        <div className="session-card-data" style={{ width: '100%', flexGrow: 1, overflow: `scroll`, height: `0px` }}>
+        <div className="session-card-data" style={{ width: '100%', flexGrow: 1, overflow: `auto`, height: `0px` }}>
           {session.session_type === 4 ? (
-            usedConfig.cardBalance.showTickets ||
-            usedConfig.cardBalance.showCredits ||
-            usedConfig.cardBalance.showBonus ||
-            usedConfig.cardBalance.showCourtesy ? (
+            showCardBalance ? (
               <SubContentCard style={{ padding: `0.5em` }}>
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
                   {usedConfig.cardBalance.showTickets && (

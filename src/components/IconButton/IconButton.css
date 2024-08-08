@@ -14,9 +14,6 @@
     transition: width 0.3s ease;
 
     .icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 25px;
         height: 25px;
     }
@@ -82,22 +79,34 @@
     
 }
 
-.button-icon.sm .icon {
+.button-icon.sm .icon { /* This display flex needs to be on every size to fix the css not applying */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 20px;
     height: 20px;
 }
 
 .button-icon.md .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 25px;
     height: 25px;
 }
 
 .button-icon.lg .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30px;
     height: 30px;
 }
 
 .button-icon.xl .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 35px;
     height: 35px;
 }
